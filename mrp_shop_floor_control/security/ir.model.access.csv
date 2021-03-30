@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_wc_capacity_manager,mrp.wc.capacity.manager,model_mrp_workcenter_capacity,mrp.group_mrp_manager,1,1,1,1
+access_mrp_wc_capacity_user,mrp.wc.capacity.user,model_mrp_workcenter_capacity,mrp.group_mrp_user,1,1,1,0
