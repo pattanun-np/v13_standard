@@ -1,0 +1,112 @@
+<?xml version="1.0" ?>
+
+<odoo>
+   <record id="mrp_production_costing_figures_form_view" model="ir.ui.view">
+         <field name="name">costfigures.mrp.production.form</field>
+         <field name="model">mrp.production</field>
+         <field name="type">form</field>
+         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+         <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="analytic_account_id"/>
+            </field>
+            <notebook>
+               <page string="Costing Figures 1">
+                    <group string='Planned Unit Costs vs Actual Unit Costs' col="3">
+                        <group string='Planned Costs'>
+                            <field name="cur_std_mat_cost" string='Material Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="cur_std_lab_cost" string='Direct Variable Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="cur_std_fixed_cost" string='Direct Fixed Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="cur_std_byproduct_amount" string='ByProduct Amount' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="cur_std_direct_cost" string='Full Direct Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string='Actual Unit Costs'>
+                            <field name="mat_cost_unit" string='Material Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="lab_cost_unit" string='Direct Variable Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="fixed_cost_unit" string='Direct Fixed Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="by_product_unit_amount" string='ByProduct Amount'  widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="direct_cost_unit" string='Full Direct Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group string='Delta'>
+                            <field name="delta_mat_cost" string='Material Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="delta_lab_cost" string='Direct Variable Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="delta_fixed_cost" string='Direct Fixed Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="delta_byproduct" string='ByProduct Amount' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="delta_direct_cost" string='Full Direct Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <group col="3">
+                        <group>
+                            <field name="prod_std_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+               </page>
+               <page string="Costing Figures 2">
+                    <group string='Actual Costs' col="3">
+                        <group >
+                            <field name="mat_cost" string='Material Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="lab_cost" string='Direct Variable Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="fixed_cost" string='Direct Fixed Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="by_product_amount" string='ByProduct Amount' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="direct_cost" string='Full Direct Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <field name="industrial_cost" string='Full Industrial Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="industrial_cost_unit" string='Full Industrial Unit Cost' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                            <label for="qty_produced" string="Produced Quantity"/>
+                            <div class="o_row">
+                                <field name="qty_produced"/>
+                                <field name="product_uom_id" readonly="True" options="{'no_open':True,'no_create':True}" force_save="1" groups="uom.group_uom"/>
+                            </div>
+                            <field name="wip_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <group string='Overhead Costs'>
+                        <group>
+                          <field name="variable_ovh_lab_mac_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                          <field name="fixed_ovh_lab_mac_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <group>
+                          <field name="ovh_product_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                          <field name="ovh_components_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+               </page>
+            </notebook>
+         </field>
+   </record>
+
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button
+                    name="%(action_mrp_account_moves)d"
+                    type="action"
+                    string="Account Moves"
+                    class="oe_stat_button"
+                    icon="fa-list"
+                    attrs="{'invisible': [('state', 'not in', ('planned', 'to_close','progress', 'done'))]}"
+                />
+                <button
+                    name="%(action_mrp_analytic_lines)d"
+                    type="action"
+                    string="Analytic Lines"
+                    class="oe_stat_button"
+                    icon="fa-list"
+                    attrs="{'invisible': [('state', 'not in', ('planned', 'to_close','progress', 'done'))]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

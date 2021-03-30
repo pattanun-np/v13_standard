@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mrp_workcenter_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+            <field name="arch" type="xml">
+                <group name="capacity" position="after">
+                    <group>
+                        <field name="nr_days"/>
+                        <field name="nr_hours" widget="float_time"/>
+                        <field name="nr_shift"/>
+                        <label for="wc_capacity"/>
+                        <div class="o_row">
+                            <field name="wc_capacity" widget="float_time"/>
+                            Hour(s)
+                        </div>
+                    </group>
+                </group>
+            </field>
+    </record>
+
+   <record id="mrp_workcenter_tree_view" model="ir.ui.view">
+         <field name="name">mrp.workcenter.tree.view</field>
+         <field name="model">mrp.workcenter</field>
+         <field name="inherit_id" ref="mrp.mrp_workcenter_tree_view"/>
+         <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="wc_capacity" string="Weekly Available Capacity"/>
+                <field name="hours_uom"/>
+            </field>
+         </field>
+   </record>
+</odoo>
