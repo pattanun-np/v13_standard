@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="mrp_workcenter_confirmation_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.confirmation.view</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <group name="capacity" position="before">
+                <group string="Confirmation">
+                    <field name="partial_confirmation"/>
+                    <field name="start_without_stock"/>
+                </group>
+                <group>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
