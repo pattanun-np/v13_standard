@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cheque_advance_confirm_order" model="ir.ui.view">
+        <field name="name">Confirm Cheque</field>
+        <field name="model">cheque.advance.confirm.order</field>
+        <field name="arch" type="xml">
+            <form string="Confirm Cheque">
+                <p class="oe_grey">
+                    Selected order will be confirmed.
+                </p>
+
+                <group>
+                    <group>
+                        <field name="is_single_validate"/>
+                    </group>
+                    <group>
+                        <field name="destination_account_id"/>
+                        <field name="validate_date"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="confirm_order" string="Confirm Cheque" type="object" class="btn-primary"/>
+                    <button name="post_cheque_to_bank" string="Post Cheque" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_cheque_advance_confirm_order" model="ir.actions.act_window">
+        <field name="name">Cheque Confirm</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cheque.advance.confirm.order</field>
+
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="groups_id" eval="[(4,ref('account.group_account_invoice'))]"/>
+        <!-- TODO: check if we need this -->
+        <field name="binding_model_id" ref="thai_accounting.model_account_cheque_statement" />
+        <field name="binding_view_types">list</field>
+    </record>
+
+
+
+
+</odoo>
