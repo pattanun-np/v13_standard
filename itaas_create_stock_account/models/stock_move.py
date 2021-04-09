@@ -18,10 +18,18 @@ import math
 class stock_move(models.Model):
     _inherit = "stock.move"
 
-    def update_account_entry_action_done(self):
+    def update_account_entry_action_done_all(self):
+        stove_move_ids = self.env['stock.move'].search([('product_id.valuation', '=', 'real_time'),('product_id.type','=','product')])
+        for stock_move in stove_move_ids:
+            if stock_move._is_in() or stock_move._is_out():
+                stock_move.update_account_entry_action_done()
 
+    def update_account_entry_action_done(self):
         am_id = self.env['account.move'].search([('stock_move_id','=',self.id)],limit=1)
         if not am_id:
+            # print ('Create Account Entry:')
+            # print(self.id)
+            # print(self.name)
             # Init a dict that will group the moves by valuation type, according to `move._is_valued_type`.
             valued_moves = {valued_type: self.env['stock.move'] for valued_type in self._get_valued_types()}
             for move in self:
@@ -58,4 +66,6 @@ class stock_move(models.Model):
                     continue
                 if svl.currency_id.is_zero(svl.value):
                     continue
+
+                # print ('--DO--')
                 svl.stock_move_id._account_entry_move(svl.quantity, svl.description, svl.id, svl.value)

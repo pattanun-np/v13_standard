@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <field name="state" position="before">
                     <button name="update_account_entry_action_done" string="Create Entry" states="done" type="object" groups="account.group_account_manager"/>
+                    <button name="update_account_entry_action_done_all" string="Create Entry (All)" states="done" type="object" groups="account.group_account_manager"/>
                 </field>
             </field>
         </record>
