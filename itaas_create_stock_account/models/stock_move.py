@@ -60,12 +60,17 @@ class stock_move(models.Model):
 
             stock_valuation_layers = self.env['stock.valuation.layer'].sudo()
             # Create the valuation layers in batch by calling `moves._create_valued_type_svl`.
-            for valued_type in self._get_valued_types():
-                todo_valued_moves = valued_moves[valued_type]
-                if todo_valued_moves:
-                    todo_valued_moves._sanity_check_for_valuation()
-                    stock_valuation_layers |= getattr(todo_valued_moves, '_create_%s_svl' % valued_type)()
-                    continue
+
+            for move in self:
+                if not move.stock_valuation_layer_ids or (move.stock_valuation_layer_ids and not sum(layer.value for layer in move.stock_valuation_layer_ids)):
+                    for valued_type in self._get_valued_types():
+                        todo_valued_moves = valued_moves[valued_type]
+                        if todo_valued_moves:
+                            todo_valued_moves._sanity_check_for_valuation()
+                            stock_valuation_layers |= getattr(todo_valued_moves, '_create_%s_svl' % valued_type)()
+                            continue
+
+                stock_valuation_layers = move.stock_valuation_layer_ids
 
             for svl in stock_valuation_layers.with_context(active_test=False):
                 if not svl.product_id.valuation == 'real_time':
