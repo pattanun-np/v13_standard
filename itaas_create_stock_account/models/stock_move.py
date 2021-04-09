@@ -9,7 +9,7 @@ from openerp.tools import float_compare, float_round
 from openerp.tools.misc import formatLang
 from openerp.exceptions import UserError, ValidationError
 from datetime import datetime, date
-
+from dateutil.relativedelta import relativedelta
 
 import time
 import math
@@ -69,3 +69,35 @@ class stock_move(models.Model):
 
                 # print ('--DO--')
                 svl.stock_move_id._account_entry_move(svl.quantity, svl.description, svl.id, svl.value)
+
+    def _create_account_move_line(self, credit_account_id, debit_account_id, journal_id, qty, description, svl_id, cost):
+        self.ensure_one()
+        date = self._context.get('force_period_date')
+        # print ('DATE---')
+        if not date:
+            # print ('NO date')
+            super(stock_move, self).with_context(force_period_date=self.date + relativedelta(hours=+7))._create_account_move_line(credit_account_id,debit_account_id,journal_id,qty,description,svl_id,cost)
+        else:
+            # print ('yes date')
+            super(stock_move, self)._create_account_move_line(credit_account_id,debit_account_id,journal_id,qty,description,svl_id,cost)
+
+        # super(stock_move, self)._create_account_move_line(credit_account_id, debit_account_id, journal_id, qty,
+        #                                                   description, svl_id, cost)
+
+
+        # self.ensure_one()
+        # AccountMove = self.env['account.move'].with_context(default_journal_id=journal_id)
+        #
+        # move_lines = self._prepare_account_move_line(qty, cost, credit_account_id, debit_account_id, description)
+        # if move_lines:
+        #     date = self._context.get('force_period_date', fields.Date.context_today(self))
+        #     new_account_move = AccountMove.sudo().create({
+        #         'journal_id': journal_id,
+        #         'line_ids': move_lines,
+        #         'date': date,
+        #         'ref': description,
+        #         'stock_move_id': self.id,
+        #         'stock_valuation_layer_ids': [(6, None, [svl_id])],
+        #         'type': 'entry',
+        #     })
+        #     new_account_move.post()
