@@ -13,13 +13,19 @@ from dateutil.relativedelta import relativedelta
 
 import time
 import math
-
+import calendar
 
 class stock_move(models.Model):
     _inherit = "stock.move"
 
     def update_account_entry_action_done_all(self):
-        stove_move_ids = self.env['stock.move'].search([('product_id.valuation', '=', 'real_time'),('product_id.type','=','product')])
+        date_month = self.date.month
+        date_year = self.date.year
+        last_date = calendar.monthrange(date_year, date_month)
+        date_start = date(date_year,date_month,1)
+        date_end = date(date_year, date_month, last_date[1])
+
+        stove_move_ids = self.env['stock.move'].search([('product_id.valuation', '=', 'real_time'),('product_id.type','=','product'),('date','>=',date_start),('date','<=',date_end)])
         for stock_move in stove_move_ids:
             if stock_move._is_in() or stock_move._is_out():
                 stock_move.update_account_entry_action_done()
