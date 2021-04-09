@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today  ITAAS (<http://www.itaas.co.th/>).
-# fix เรื่อง reverse move ของ V13
+# fix perpetual create account entry one by one
+# fix perpetual create account entry all
 {
     "name": "Itaas Cheque Return",
-    'version': '13.0.1.1',
+    'version': '13.0.1.2',
     "category": 'itaas',
     'summary': 'Itaas Cheque Return.',
     "description": """
