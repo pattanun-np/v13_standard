@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<odoo>
+    <record id="mrp_production_form_confirmation_view" model="ir.ui.view">
+        <field name="name">mrp.production.confirmation.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <button name="button_scrap" position="after">
+                <button name="%(action_mrp_confirmation)d" type="action" string="WO Confirmation" attrs="{'invisible': ['|',('workorder_count', '=', 0),('state','not in',('planned','progress'))]}" class="oe_highlight"/>
+                <button name="action_closing" type="object" string="Close" attrs="{'invisible': ['|', '|', ('id', '=', False), ('is_locked', '=', False), ('state', '!=', 'progress')]}" class="oe_highlight"/>
+            </button>
+            <button name="button_plan" position="attributes">
+                <attribute name="string">Schedule WOs</attribute>
+                <attribute name="attrs">{'invisible': ['|',('state','not in',('confirmed')),('routing_id','=',False)]}</attribute>
+            </button>
+            <button name="button_plan" position="after">
+                <button name="button_reschedule_workorders" type="object" string="Reschedule WOs" attrs="{'invisible': [('state', '!=', 'planned')]}"/>
+            </button>
+            <field name="date_start_wo" position="after">
+                <label for="date_planned_start_wo" string="Scheduled Dates" attrs="{'invisible': ['|',('date_planned_start_wo','=',False),('state','in',['draft','confirmed'])]}"/>
+                <div class="o_row" attrs="{'invisible': ['|',('date_planned_start_wo','=',False),('state','in',['draft','confirmed'])]}">
+                    <field name="date_planned_start_wo" attrs="{'readonly': [('move_raw_ids', '!=', [])]}"/>
+                    <label for="date_planned_finished_wo" string="to"/>
+                    <field name="date_planned_finished_wo" attrs="{'readonly': [('move_raw_ids', '!=', [])]}"/>
+                </div>
+                <label for="date_actual_start_wo" string="Actual Dates" attrs="{'invisible': [('date_actual_start_wo', '=', False)]}"/>
+                <div class="o_row" attrs="{'invisible': [('date_actual_start_wo', '=', False)]}">
+                    <field name="date_actual_start_wo" readonly="1"/>
+                    <label for="date_actual_finished_wo" string="to"/>
+                    <field name="date_actual_finished_wo" readonly="1"/>
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>
