@@ -13,6 +13,8 @@ class ResCompany(models.Model):
     machine_run_cost_account_id = fields.Many2one('account.account', string="Machine Run Cost Account")
     manufacturing_journal_id = fields.Many2one('account.journal', string="Manufacturing journal id")
     cost_analytic_account_id = fields.Many2one('account.analytic.account', string="Cost Collector Analytic Account")
+    cost_analytic_account_id = fields.Many2one('account.analytic.account', string="Cost Collector Analytic Account")
+    wip_fg_difference_account_id = fields.Many2one('account.account', string="Expense Difference Account")
 
 
 class MrpProdCostParameters (models.TransientModel):
@@ -27,4 +29,5 @@ class MrpProdCostParameters (models.TransientModel):
     machine_run_cost_account_id = fields.Many2one('account.account', string=_("Machine Run Cost Account*"), related="company_id.machine_run_cost_account_id", readonly=False)
     manufacturing_journal_id = fields.Many2one('account.journal', string=_("Manufacturing journal id*"), related="company_id.manufacturing_journal_id", readonly=False)
     cost_analytic_account_id = fields.Many2one('account.analytic.account', string=_("Cost Collector Analytic Account*"), related="company_id.cost_analytic_account_id", readonly=False)
+    wip_fg_difference_account_id = fields.Many2one('account.account', string="Expense Difference Account",related="company_id.wip_fg_difference_account_id", readonly=False)
     company_id = fields.Many2one('res.company', string=_('Company'), required=True, default=lambda self: self.env.user.company_id)

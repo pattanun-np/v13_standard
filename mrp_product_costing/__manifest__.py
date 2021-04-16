@@ -19,6 +19,7 @@
         'account',
         'analytic',
         'mrp_shop_floor_control',
+        'mrp_workorder',
     ],
     "data": [
         'views/account_move_line_views.xml',

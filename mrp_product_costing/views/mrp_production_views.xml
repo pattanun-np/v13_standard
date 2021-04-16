@@ -7,6 +7,13 @@
          <field name="type">form</field>
          <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
          <field name="arch" type="xml">
+
+             <button name="action_cancel" position="after">
+<!--                 attrs="{'invisible': ['|', '|', '|', ('id', '=', False), ('is_locked', '=', False), ('state', 'in', ('done','cancel')), ('confirm_cancel', '=', False)]}"-->
+<!--                 <button name="consume_material_to_wip" type="object" string="Create WIP"  confirm="Are you sure to create WIP ?"/>-->
+<!--                 <button name="check_wip_to_fg_diff_amount" type="object" string="Chek WIP" />-->
+
+             </button>
             <field name="company_id" position="after">
                 <field name="analytic_account_id"/>
             </field>

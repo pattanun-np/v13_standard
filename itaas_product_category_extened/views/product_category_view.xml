@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- purchase.order : inherit views -->
+    <record id="view_category_property_form_update_domain_of_account" model="ir.ui.view">
+        <field name="name">product.category.form.update.cost.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
+        <field name="arch" type="xml">
+
+            <field name="property_account_expense_categ_id" position="attributes">
+                <attribute name="domain">[]</attribute>
+            </field>
+
+        </field>
+    </record>
+
+
+</odoo>

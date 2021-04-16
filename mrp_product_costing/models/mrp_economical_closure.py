@@ -18,9 +18,10 @@ class MrpProduction(models.Model):
 
     def post_inventory(self):
         res = super().post_inventory()
-        for record in self:
-            record.action_variances_postings()
-            record.action_economical_closure()
+        #remove by JA 31/03/2021
+        # for record in self:
+            # record.action_variances_postings()
+            # record.action_economical_closure()
         return res
 
     def action_economical_closure(self):
@@ -53,7 +54,7 @@ class MrpProduction(models.Model):
                 for time in workorder.time_ids:
                     timevariable += time.working_duration
                     timefixed += time.setup_duration + time.teardown_duration
-                variablelabcost += timevariable * workorder.workcenter_id.cost_hour / 60 * (workorder.workcenter_id.costs_overhead_variable_percentage / 100)
+                variablelabcost += timevariable * workorder.workcenter_id.costs_hour / 60 * (workorder.workcenter_id.costs_overhead_variable_percentage / 100)
                 fixedlabcost += timefixed * (workorder.workcenter_id.cost_hour_fixed / 60) * (workorder.workcenter_id.costs_overhead_fixed_percentage / 100)
                 # fixed direct overhead cost posting
                 if fixedlabcost:
