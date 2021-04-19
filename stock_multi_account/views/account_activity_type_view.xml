@@ -1,0 +1,41 @@
+<odoo>
+
+    <record id="view_account_activity_type_form" model="ir.ui.view">
+        <field name="name">account.activity.type.form</field>
+        <field name="model">account.activity.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_activity_type_tree" model="ir.ui.view">
+        <field name="name">account.activity.type.tree</field>
+        <field name="model">account.activity.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_account_activity_type" model="ir.actions.act_window">
+        <field name="name">Account Activity Type</field>
+        <field name="res_model">account.activity.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_account_activity_type_tree"/>
+    </record>
+
+    <menuitem id="menu_account_activity_type"
+              name="Account Activity Type"
+              parent="sale.menu_sale_config"
+              sequence="110"
+              action="action_account_activity_type"/>
+
+</odoo>

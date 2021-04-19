@@ -12,9 +12,10 @@ class MrpProduction(models.Model):
     def action_variances_postings(self):
         for record in self:
             quantity = record.qty_produced
-            record._planned_variance_postings(quantity)
-            record._material_costs_variance_postings(quantity)
-            record._direct_costs_variance_postings(quantity)
+            # remove variance first by JA 31/03/2021
+            # record._planned_variance_postings(quantity)
+            # record._material_costs_variance_postings(quantity)
+            # record._direct_costs_variance_postings(quantity)
         return True
 
     # production planned variance costs posting

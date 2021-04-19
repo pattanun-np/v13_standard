@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_pnd30_id">
+            <t t-call="web.basic_layout">
+                <div class="page" t-attf-style="background-image:url('/itaas_print_tax_report/static/description/222019.png'); background-size:360mm 520mm; width:360mm; height:520mm;">
+                    <div>
+                        <t t-if="company_id.id == 1">
+                            <t t-set="company" t-value="company_id"/>
+                        </t>
+                        <t t-if="company_id.id == 2">
+                            <t t-set="company" t-value="company_id"/>
+                        </t>
+                        <!--<t t-set="company" t-value="company_id"/>-->
+                        <t t-set="date_to" t-value="date_to"/>
+                        <t t-if="company">
+                            <t t-set="info1" t-value="company.vat"/>
+                            <span t-esc="info1[0]" style="position: absolute;left: 370px;top: 200px;"/>
+                            <span t-esc="info1[1]" style="position: absolute;left: 410px;top: 200px;"/>
+                            <span t-esc="info1[2]" style="position: absolute;left: 435px;top: 200px;"/>
+                            <span t-esc="info1[3]" style="position: absolute;left: 465px;top: 200px;"/>
+                            <span t-esc="info1[4]" style="position: absolute;left: 495px;top: 200px;"/>
+                            <span t-esc="info1[5]" style="position: absolute;left: 535px;top: 200px;"/>
+                            <span t-esc="info1[6]" style="position: absolute;left: 562px;top: 200px;"/>
+                            <span t-esc="info1[7]" style="position: absolute;left: 592px;top: 200px;"/>
+                            <span t-esc="info1[8]" style="position: absolute;left: 617px;top: 200px;"/>
+                            <span t-esc="info1[9]" style="position: absolute;left: 642px;top: 200px;"/>
+                            <span t-esc="info1[10]" style="position: absolute;left: 683px;top: 200px;"/>
+                            <span t-esc="info1[11]" style="position: absolute;left: 710px;top: 200px;"/>
+                            <span t-esc="info1[12]" style="position: absolute;left: 753px;top: 200px;"/>
+
+                            <t t-set="branch" t-value="company.branch_no"/>
+                            <span t-esc="branch[0]" style="position: absolute;left: 640px;top: 240px;"/>
+                            <span t-esc="branch[1]" style="position: absolute;left: 670px;top: 240px;"/>
+                            <span t-esc="branch[2]" style="position: absolute;left: 700px;top: 240px;"/>
+                            <span t-esc="branch[3]" style="position: absolute;left: 730px;top: 240px;"/>
+                            <span t-esc="branch[4]" style="position: absolute;left: 760px;top: 240px;"/>
+
+                            <t t-set="name" t-value="company.name"/>
+                            <div style="width:500px; position: absolute;left: 250px;top: 295px;">
+                                <span t-esc="name"/>
+                            </div>
+                            <div style="width:500px; position: absolute;left: 265px;top: 365px;">
+                                <span t-esc="name"/>
+                            </div>
+
+                            <t t-set="building" t-value="company.building"/>
+                            <span t-esc="building" style="position: absolute;left: 250px;top: 410px;"/>
+                            <t t-set="roomnumber" t-value="company.roomnumber"/>
+                            <span t-esc="roomnumber" style="position: absolute;left: 600px;top: 410px;"/>
+
+                            <t t-set="floornumber" t-value="company.floornumber"/>
+                            <span t-esc="floornumber" style="position: absolute;left: 720px;top: 410px;"/>
+
+                            <t t-set="village" t-value="company.village"/>
+                            <span t-esc="village" style="position: absolute;left: 180px;top: 450px;"/>
+
+                            <t t-set="house_number" t-value="company.house_number"/>
+                            <span t-esc="house_number" style="position: absolute;left: 410px;top: 450px;"/>
+
+                            <t t-set="soi_number" t-value="company.soi_number"/>
+                            <span t-esc="soi_number" style="position: absolute;left: 640px;top: 450px;"/>
+
+                            <t t-set="moo_number" t-value="company.moo_number"/>
+                            <span t-esc="moo_number" style="position: absolute;left: 500px;top: 450px;"/>
+
+                            <t t-set="street" t-value="company.street"/>
+                            <!--<span t-esc="street" style="position: absolute;left: 150px;top: 450px;"/>-->
+                            <!--<t t-if="company_id.id == 2">-->
+                            <div style="width:500px; position: absolute; left: 150px; top: 480px;">
+                                <span>สุทธิสารวินิจฉัย </span>
+                            </div>
+                            <div style="width:500px; position: absolute; left: 200px; top: 525px;">
+                                <span>ดินแดง </span>
+                            </div>
+                            <div style="width:500px; position: absolute; left: 600px; top: 480px;">
+                                <span>ดินแดง </span>
+                            </div>
+
+
+
+                            <!--</t>-->
+
+                            <t t-set="tumbon" t-value="company.tumbon"/>
+                            <span t-esc="tumbon" style="position: absolute;left: 520px;top: 490px;"/>
+
+                            <t t-set="city" t-value="company.city"/>
+                            <span t-esc="city" style="position: absolute;left: 180px;top: 520px;"/>s
+
+                            <t t-set="state_id" t-value="company.state_id.name"/>
+                            <span t-esc="state_id" style="position: absolute;left: 540px;top: 520px;"/>
+
+
+                            <t t-set="code" t-value="company.zip"/>
+                            <span t-esc="code[0]" style="position: absolute;left:205px;top: 560px;"/>
+                            <span t-esc="code[1]" style="position: absolute;left:230px;top: 560px;"/>
+                            <span t-esc="code[2]" style="position: absolute;left:250px;top: 560px;"/>
+                            <span t-esc="code[3]" style="position: absolute;left:280px;top: 560px;"/>
+                            <span t-esc="code[4]" style="position: absolute;left:310px;top: 560px;"/>
+                            <t t-set="phone" t-value="company.phone"/>
+                            <span t-esc="phone" style="position: absolute;left:205px;top: 600px;"/>
+
+                            <t t-if="company_id.branch_no == '00000'">
+                                <span style="position: absolute;left:860px;top: 230px;">✔</span>
+                            </t>
+                            <t t-if="company_id.branch_no != '00000'">
+                                <span style="position: absolute;left:1060px;top: 230px;">✔</span>
+                                <span t-esc="branch[0]" style="position: absolute;left: 1180px;top: 230px;"/>
+                                <span t-esc="branch[1]" style="position: absolute;left: 1210px;top: 230px;"/>
+                                <span t-esc="branch[2]" style="position: absolute;left: 1230px;top: 230px;"/>
+                                <span t-esc="branch[3]" style="position: absolute;left: 1260px;top: 230px;"/>
+                                <span t-esc="branch[4]" style="position: absolute;left: 1285px;top: 230px;"/>
+                            </t>
+                            <t t-if="docs.fax_for">
+                                <span style="position: absolute;left:793px;top: 335px;">
+                                    <font style="font-size: 30px;">✓</font>
+                                </span>
+                            </t>
+
+                            <t t-if="docs.fax_1">
+                                <span style="position: absolute;left:793px;top: 195px;">
+                                    <font style="font-size: 30px;">✓</font>
+                                </span>
+                            </t>
+                            <t t-if="docs.fax_2">
+                                <span style="position: absolute;left:793px;top: 250px;">
+                                    <font style="font-size: 30px;">✓</font>
+                                </span>
+                            </t>
+
+
+
+
+                            <t t-if="date_to">
+                                <t t-set="date" t-value="time.strptime(date_to,'%Y-%m-%d')"/>
+                                <!--<span t-esc="date.tm_year + 543" style="position: absolute;left:720px;top: 600px;"/>-->
+                                <t t-if="date.tm_mon == 1">
+                                    <span style="position: absolute;left:795px;top: 400px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 2">
+                                    <span style="position: absolute;left:795px;top: 425px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 3">
+                                    <span style="position: absolute;left:795px;top: 450px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 4">
+                                    <span style="position: absolute;left:925px;top: 400px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 5">
+                                    <span style="position: absolute;left:925px;top: 425px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 6">
+                                    <span style="position: absolute;left:925px;top: 450px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 7">
+                                    <span style="position: absolute;left:1060px;top: 400px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 8">
+                                    <span style="position: absolute;left:1060px;top: 425px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 9">
+                                    <span style="position: absolute;left:1060px;top: 450px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 10">
+                                    <span style="position: absolute;left:1195px;top: 400px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 11">
+                                    <span style="position: absolute;left:1195px;top: 425px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 12">
+                                    <span style="position: absolute;left:1195px;top: 450px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <span style="position: absolute;left:1268px;top: 380px;">
+                                    <span t-esc="date.tm_year"/>
+                                </span>
+                            </t>
+                        </t>
+                    </div>
+                    <div>
+                        <t t-set="amount_purchase" t-value="purchase"/>
+                        <t t-set="amount_sale" t-value="sale"/>
+                        <t t-set="sum_8" t-value="0"/>
+                        <t t-set="sum_9" t-value="0"/>
+                        <span style="position: absolute;right: 380px;top: 730px;"><span t-esc="'{0:,.2f}'.format(float(sale['amount_before_tax']))"/></span>
+                        <span style="position: absolute;right: 380px;top: 775px;">0.00</span>
+                        <span style="position: absolute;right: 380px;top: 820px;"><span t-esc="'{0:,.2f}'.format(float(sale['amount_untaxed_no_vat']))"/></span>
+                        <span style="position: absolute;right: 380px;top: 863px;"><span t-esc="'{0:,.2f}'.format(float(sale['amount_before_tax'] - sale['amount_untaxed_no_vat']))"/></span>
+                        <t t-set="sum_5" t-value="(sale['amount'])"/>
+                        <span style="position: absolute;right: 110px;top: 910px;"><span t-esc="'{0:,.2f}'.format(float(sum_5))"/></span>
+                        <span style="position: absolute;right: 377px;top: 955px;"><span t-esc="'{0:,.2f}'.format(float(purchase['amount_before_tax']))"/></span>
+                        <t t-set="sum_7" t-value="(purchase['amount'])"/>
+                        <span style="position: absolute;right: 110px;top: 1010px;"><span t-esc="'{0:,.2f}'.format(float(sum_7))"/></span>
+
+                        <t t-if="sum_5 &gt;= sum_7">
+                            <t t-set="sum_8" t-value="(sum_5 - sum_7)"/>
+                            <span style="position: absolute;right: 110px;top: 1055px;"><span t-esc="'{0:,.2f}'.format(abs(float(sum_8)))"/></span>
+                            <span style="position: absolute;right: 110px;top: 1110px;">0.00</span>
+                        </t>
+                        <t t-if="sum_5 &lt;= sum_7">
+                            <t t-set="sum_9" t-value="(sum_7 - sum_5)"/>
+                            <span style="position: absolute;right: 108px;top: 1055px;">0.00</span>
+                            <span style="position: absolute;right: 110px;top: 1100px;"><span t-esc="'{0:,.2f}'.format(abs(float(sum_9)))"/></span>
+                        </t>
+<!--                        position 10-->
+                        <span style="position: absolute;right: 110px;top: 1150px;"><span t-esc="'{0:,.2f}'.format(abs(float(docs.previous_balance)))"/></span>
+<!--                        position 11-->
+                        <t t-if="sum_8 &gt;= (sum_9 + docs.previous_balance)">
+                            <span style="position: absolute;right: 377px;top:1190px;"><span t-esc="'{0:,.2f}'.format(abs(float(sum_8 - docs.previous_balance)))"/></span>
+                        </t>
+                        <t t-if="sum_8 &lt; (sum_9 + docs.previous_balance)">
+                            <span style="position: absolute;right: 376px;top:1190px;"><span t-esc="'{0:,.2f}'.format(abs(float(0.00)))"/></span>
+                        </t>
+<!--                        position 12-->
+                        <t t-if="sum_9">
+                            <span style="position: absolute;right: 376px;top: 1230px;"><span t-esc="'{0:,.2f}'.format(abs(float(sum_9 + docs.previous_balance)))"/></span>
+                        </t>
+                        <t t-if="not sum_9 and sum_8 &lt; docs.previous_balance">
+                            <span style="position: absolute;right: 377px;top: 1230px;"><span t-esc="'{0:,.2f}'.format(abs(float(docs.previous_balance - sum_8)))"/></span>
+                        </t>
+                        <t t-if="not sum_9 and sum_8 &gt; docs.previous_balance">
+                            <span style="position: absolute;right: 377px;top: 1230px;"><span t-esc="'{0:,.2f}'.format(abs(float(0.00)))"/></span>
+                        </t>
+<!--                        ## end position 12-->
+                        <span style="position: absolute;right: 377px;top: 1320px;">0.00</span>
+                        <span style="position: absolute;right: 377px;top: 1360px;">0.00</span>
+                        <span style="position: absolute;right: 110px;top: 1400px;">0.00</span>
+                        <span style="position: absolute;right: 110px;top: 1450px;">0.00</span>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>

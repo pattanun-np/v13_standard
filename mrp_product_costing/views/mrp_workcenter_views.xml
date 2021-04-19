@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+
+    <record id="mrp_workorder_post_inventory_view" model="ir.ui.view">
+        <field name="name">mrp.workorder.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_inherit_workorder"/>
+        <field name="arch" type="xml">
+            <button name="open_tablet_view" position="after">
+<!--                <button name="button_post_inventory" type="object" string="Post Inventory" attrs="{'invisible': ['|',('qty_produced','&lt;', 1),('state', 'in', ('done', 'cancel'))]}"/>-->
+                <button name="button_rework_start" type="object" string="Start Rework" attrs="{'invisible': ['|', '|','|', ('production_state', '=', 'done'),('rework_qty', '=', 0),('is_rework', '=', True)]}"/>
+<!--                <button name="button_rework_finish" type="object" string="Finish Rework" attrs="{'invisible': ['|', '|', ('production_state', '=', 'done'),('is_rework', '=', False)]}"/>-->
+                <field name="is_rework" invisible="1"/>
+                <field name="rework_qty" invisible="1"/>
+            </button>
+
+        </field>
+    </record>
+
+    <record id="mrp_workorder_qty_post_inventory_view" model="ir.ui.view">
+        <field name="name">mrp.workorder.qty.post.form</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="arch" type="xml">
+            <field name="qty_remaining" position="after">
+                <field name="qty_post" readonly="1"/>
+            </field>
+
+            <xpath expr="//page[@name='workorder_page_misc']" position="after">
+                <page string="Rework" name="workorder_rework" groups="mrp.group_mrp_manager">
+                    <group>
+                        <group>
+                            <field name="rework_qty"/>
+                            <field name="done_rework_qty" />
+                            <field name="is_rework"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+
     <record id="mrp_workcenter_view" model="ir.ui.view">
         <field name="name">mrp.workcenter.form</field>
         <field name="model">mrp.workcenter</field>
@@ -15,7 +57,7 @@
                 <page string="Costing Data">
                     <group col="3">
                         <group string='Direct Costs'>
-                            <field name="cost_hour" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
+                            <field name="costs_hour" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
                             <field name="cost_hour_fixed" widget="monetary" options="{'currency_field': 'currency_id'}" required="True"/>
                             <field name="currency_id" invisible="1"/>
                         </group>

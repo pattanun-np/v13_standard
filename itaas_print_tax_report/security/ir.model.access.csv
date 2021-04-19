@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pnd30_report_tax,pnd30_report_tax,itaas_print_tax_report.model_pnd30_report_tax,base.group_user,1,1,1,1
+
+
+

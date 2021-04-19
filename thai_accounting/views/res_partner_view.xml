@@ -1,0 +1,16 @@
+<odoo>
+
+	<!-- inherit res.partner form -->
+	<record id="view_partner_form_itaas_inherit" model="ir.ui.view">
+		<field name="name">res.partner.form.itaas</field>
+		<field name="model">res.partner</field>
+		<field name="inherit_id" ref="base.view_partner_form"/>
+		<field name="arch" type="xml">
+			<field name="category_id" position="before">
+				<field name="customer_no_vat" invisible="0"/>
+				<field name="branch_no"/>
+			</field>
+
+		</field>
+	</record>
+</odoo>

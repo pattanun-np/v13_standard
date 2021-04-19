@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="report_taxsummary">
+             <t t-call="web.basic_layout">
+                <div class="page" t-attf-style="background-image:url('/tax_reports_v2/static/description/phorpor30.jpg'); background-size:360mm 520mm; width:360mm; height:520mm;">
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <div style="position: absolute;left: 27%;">
+                        <t t-set="info" t-value="get_header_info"/>
+                            <font style="font-size: 20px;">
+                                <t t-set="info1" t-value="info['company_vat']" />
+                                  <span t-esc="info1[0]" />&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[1]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[2]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[3]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[4]" />&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[5]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[6]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[7]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[8]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[9]" />&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[10]" />&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[11]" />&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+                                  <span t-esc="info1[12]" />
+                            </font>
+                    </div>
+                    <br/><br/>
+                    <div style="position: absolute;left: 46.5%;">
+                        <font style="font-size: 20px;">
+                            <t t-set="info2" t-value="info['company_branch']" />
+                            <!--ต้องเช็คจำนวนของการ Input ว่ามีกี่หลัก ไม่อย่างนั้นจะ Error-->
+                               <span t-esc="info2[0]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info2[1]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info2[2]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info2[3]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info2[4]" />
+                        </font>
+                    </div>
+                    <br/><br/><p> </p>
+                    <div style="position: absolute;left: 17%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_name']" />
+                        </font>
+                    </div>
+                    <br/><br/><br/><br/>
+                    <div style="position: absolute;left: 19.5%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_name']" />
+                        </font>
+                    </div>
+                    <br/><p> </p><p> </p>
+                    <div style="position: absolute;left: 14%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_building']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 42%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_roomnumber']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 53%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_floornumber']" />
+                        </font>
+                    </div>
+                    <br/><br/><p> </p>
+                    <div style="position: absolute;left: 10%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_village']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 27.5%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_house_number']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 37%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_moo_number']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 46.5%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_soi_number']" />
+                        </font>
+                    </div>
+                    <br/><p> </p>
+                    <div style="position: absolute;left: 9%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_street']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 38%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_tumbon']" />
+                        </font>
+                    </div>
+                    <br/><br/>
+                    <div style="position: absolute;left: 12%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_city']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;left: 37.5%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_province']" />
+                        </font>
+                    </div>
+                    <br/><br/>
+                    <div style="position: absolute;left: 14.5%;">
+                        <font style="font-size: 20px;">
+                            <t t-set="info3" t-value="info['company_code']" />
+                               <span t-esc="info3[0]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info3[1]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info3[2]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info3[3]" />&amp;nbsp;&amp;nbsp;
+                               <span t-esc="info3[4]" />
+                        </font>
+                    </div>
+                    <br/><br/>
+                     <div style="position: absolute;left: 11%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="info['company_phone']" />
+                        </font>
+                    </div>
+                    <br/><br/><br/><br/><br/><br/><p> </p>
+                    <div style="position: absolute;right: 27.5%;">
+                        <t t-set="t_info" t-value="get_tax_info"/>
+                           <font style="font-size: 20px;">
+                             <span t-esc="t_info['total_sale_untax']" />
+                             <br/><br/><br/><br/><br/>
+                             <span t-esc="t_info['total_sale_untax']" />
+                             <br/><br/><br/>
+                             <span t-esc="t_info['total_purchase_untax']" />
+                           </font>
+                    </div>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <div style="position: absolute;right: 8.3%;">
+                        <font style="font-size: 20px;">
+                            <span t-esc="t_info['total_sale_tax']" />
+                            <br/><br/><br/><p> </p>
+                            <span t-esc="t_info['total_purchase_untax']" />
+                        </font>
+                    </div>
+                    <div style="position: absolute;right: 8.3%;">
+                        <font style="font-size: 20px;">
+                            <br/><br/><br/><br/><br/>
+                            <t t-set="sale_tax" t-value="t_info['total_sale_tax']" />
+                            <t t-set="purchase_untax" t-value="t_info['total_purchase_untax']" />
+                            <t t-set="dif_last" t-value="t_info['tax_dif_last']" />
+                            <t t-if="sale_tax &gt; purchase_untax" >
+                                <t t-set="total_total" t-value="sale_tax - purchase_untax" />
+                                <span t-esc="total_total" />
+                            </t>
+                            <br/><br/>
+                            <t t-if="sale_tax &lt; purchase_untax" >
+                                <t t-set="total_total" t-value="purchase_untax - sale_tax" />
+                                <span t-esc="total_total" />
+                            </t>
+                            <br/><p> </p>
+                            <t t-if="dif_last &lt; 0" >
+                                <span t-esc="dif_last" />
+                            </t>
+                        </font>
+                    </div>
+
+                    <!--div>
+                          <t t-set="info" t-value="get_header_info"/>
+                            <h3 class="text-center mb32">
+                                <p t-esc="info['date_from']"/>
+                                <p t-esc="info['date_to']"/>
+                                <p t-esc="info['company_vat']"/>
+                                <p t-esc="info['company_branch']"/>
+                                <p t-esc="info['company_name']"/>
+                                 <p t-esc="info['company_building']"/>
+                                 <p t-esc="info['company_roomnumber']"/>
+                                 <p t-esc="info['company_floornumber']"/>
+                                 <p t-esc="info['company_village']"/>
+                                 <p t-esc="info['company_house_number']"/>
+                                 <p t-esc="info['company_moo_number']"/>
+                                 <p t-esc="info['company_soi_number']"/>
+                                 <p t-esc="info['company_street']"/>
+                                 <p t-esc="info['company_tumbon']"/>
+                                <p t-esc="info['company_city']"/>
+                                <p t-esc="info['company_province']"/>
+                            </h3>
+                         <t t-set="t_info" t-value="get_tax_info"/>
+                            <h3>
+                                <p>-sale tax-</p>
+                                <p t-esc="t_info['total_sale_untax']"/>
+                                <p t-esc="t_info['total_sale_included_tax']"/>
+                                <p t-esc="t_info['total_sale_tax']"/>
+                                <p>-sale tax last-</p>
+                                <p t-esc="t_info['total_sale_untax_last']"/>
+                                <p t-esc="t_info['total_sale_included_tax_last']"/>
+                                <p t-esc="t_info['total_sale_tax_last']"/>
+                                <p>-purchase tax-</p>
+                                <p t-esc="t_info['total_purchase_untax']"/>
+                                <p t-esc="t_info['total_purchase_included_tax']"/>
+                                <p t-esc="t_info['total_purchase_tax']"/>
+                                <p>-purchase tax last-</p>
+                                <p t-esc="t_info['total_purchase_untax_last']"/>
+                                <p t-esc="t_info['total_purchase_included_tax_last']"/>
+                                <p t-esc="t_info['total_purchase_tax_last']"/>
+                                <p>-tax dif-</p>
+                                <p t-esc="t_info['tax_dif']"/>
+                                <p>-tax dif last-</p>
+                                <p t-esc="t_info['tax_dif_last']"/>
+                            </h3>
+                     </div-->
+                </div>
+              </t>
+        </template>
+
+    </data>
+</openerp>

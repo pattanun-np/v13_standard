@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_categ_multi_input,access_categ_multi_input_user,model_categ_multi_input,base.group_user,1,1,1,1
+access_categ_multi_output,access_categ_multi_output_user,model_categ_multi_output,base.group_user,1,1,1,1
+access_location_multi_input,access_location_multi_input_user,model_location_multi_input,base.group_user,1,1,1,1
+access_location_multi_output,access_location_multi_output_user,model_location_multi_output,base.group_user,1,1,1,1
+access_account_activity_type,access_account_activity_type_user,model_account_activity_type,base.group_user,1,1,1,1

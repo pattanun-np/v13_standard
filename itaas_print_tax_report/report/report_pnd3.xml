@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_pnd3_id">
+            <t t-call="web.basic_layout">
+                <div class="page" t-attf-style="background-image:url('/itaas_print_tax_report/static/description/pnd3.jpg'); background-size:360mm 520mm; width:360mm; height:520mm;">
+                    <!--<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><p> </p>-->
+                    <!--<div style="position: absolute;left: 28%;">-->
+                    <div>
+                        <t t-set="info" t-value="get_header_info"/>
+                        <font style="font-size: 20px;">
+                            <t t-if="info and info['company_vat']">
+                                <t t-set="info1" t-value="info['company_vat']"/>
+                                <span t-esc="info1[0]" style="position: absolute;left: 385px;top: 210px;"/>
+                                <span t-esc="info1[1]" style="position: absolute;left: 425px;top: 210px;"/>
+                                <span t-esc="info1[2]" style="position: absolute;left: 455px;top: 210px;"/>
+                                <span t-esc="info1[3]" style="position: absolute;left: 482px;top: 210px;"/>
+                                <span t-esc="info1[4]" style="position: absolute;left: 505px;top: 210px;"/>
+                                <span t-esc="info1[5]" style="position: absolute;left: 545px;top: 210px;"/>
+                                <span t-esc="info1[6]" style="position: absolute;left: 573px;top: 210px;"/>
+                                <span t-esc="info1[7]" style="position: absolute;left: 600px;top: 210px;"/>
+                                <span t-esc="info1[8]" style="position: absolute;left: 623px;top: 210px;"/>
+                                <span t-esc="info1[9]" style="position: absolute;left: 650px;top: 210px;"/>
+                                <span t-esc="info1[10]" style="position: absolute;left: 697px;top: 210px;"/>
+                                <span t-esc="info1[11]" style="position: absolute;left: 720px;top: 210px;"/>
+                                <span t-esc="info1[12]" style="position: absolute;left: 757px;top: 210px;"/>
+                            </t>
+                            <t t-if="info and info['company_branch']">
+                                <t t-set="branch" t-value="info['company_branch']"/>
+                                <span t-esc="branch[0]" style="position: absolute;left: 652px;top: 287px;"/>
+                                <span t-esc="branch[1]" style="position: absolute;left: 682px;top: 287px;"/>
+                                <span t-esc="branch[2]" style="position: absolute;left: 712px;top: 287px;"/>
+                                <span t-esc="branch[3]" style="position: absolute;left: 740px;top: 287px;"/>
+                                <span t-esc="branch[4]" style="position: absolute;left: 769px;top: 287px;"/>
+                            </t>
+                            <t t-if="info and info['company_name']">
+                                <t t-set="company" t-value="info['company_name']"/>
+                                <span t-esc="company" style="position: absolute;left:100px;top: 320px;"/>
+                            </t>
+                            <t t-if="info and info['company_building']">
+                                <t t-set="building" t-value="info['company_building']"/>
+                                <span t-esc="building" style="position: absolute;left:200px;top: 360px;"/>
+                            </t>
+                            <t t-if="info and info['company_roomnumber']">
+                                <t t-set="roomnumber" t-value="info['company_roomnumber']"/>
+                                <span t-esc="roomnumber" style="position: absolute;left:453px;top: 360px;"/>
+                            </t>
+                            <t t-if="info and info['company_floornumber']">
+                                <t t-set="floornumber" t-value="info['company_floornumber']"/>
+                                <span t-esc="floornumber" style="position: absolute;left:545px;top: 360px;"/>
+                            </t>
+                            <t t-if="info and info['company_village']">
+                                <t t-set="village" t-value="info['company_village']"/>
+                                <span t-esc="village" style="position: absolute;left:647px;top: 360px;"/>
+                            </t>
+                            <t t-if="info and info['company_house_number']">
+                                <t t-set="house_number" t-value="info['company_house_number']"/>
+                                <span t-esc="house_number" style="position: absolute;left:140px;top: 400px;"/>
+                            </t>
+                            <t t-if="info and info['company_moo_number']">
+                                <t t-set="moo_number" t-value="info['company_moo_number']"/>
+                                <span t-esc="moo_number" style="position: absolute;left:370px;top: 400px;"/>
+                            </t>
+                            <t t-if="info and info['company_soi_number']">
+                                <t t-set="soi_number" t-value="info['company_soi_number']"/>
+                                <span t-esc="soi_number" style="position: absolute;left:507px;top: 400px;"/>
+                            </t>
+                            <t t-if="info and info['company_street']">
+                                <t t-set="street" t-value="info['company_street']"/>
+                                <span t-esc="street" style="position: absolute;left:507px;top: 430px;"/>
+                            </t>
+                            <t t-if="info and info['company_city']">
+                                <t t-set="city" t-value="info['company_city']"/>
+                                <span t-esc="city" style="position: absolute;left:190px;top: 470px;"/>
+                            </t>
+                            <t t-if="info and info['company_province']">
+                                <t t-set="province" t-value="info['company_province']"/>
+                                <span t-esc="province" style="position: absolute;left:520px;top: 470px;"/>
+                            </t>
+                            <t t-if="info and info['company_code']">
+                                <t t-set="code" t-value="info['company_code']"/>
+                                <span t-esc="code[0]" style="position: absolute;left:205px;top: 505px;"/>
+                                <span t-esc="code[1]" style="position: absolute;left:235px;top: 505px;"/>
+                                <span t-esc="code[2]" style="position: absolute;left:255px;top: 505px;"/>
+                                <span t-esc="code[3]" style="position: absolute;left:285px;top: 505px;"/>
+                                <span t-esc="code[4]" style="position: absolute;left:315px;top: 505px;"/>
+                            </t>
+                            <span style="position: absolute;left:210px;top: 605px;">
+                                <font style="font-size: 30px;">✓</font>
+                            </span>
+                            <span style="position: absolute;left:320px;top: 710px;">
+                                <font style="font-size: 30px;">✓</font>
+                            </span>
+                            <t t-if="info and info['company_phone']">
+                                <t t-set="phone" t-value="info['company_phone']"/>
+                                <span t-esc="phone" style="position: absolute;left:440px;top: 510px;"/>
+                            </t>
+                            <t t-if="info and info['date_to']">
+                                <t t-set="date" t-value="time.strptime(info['date_to'],'%Y-%m-%d')"/>
+                                <span t-esc="date.tm_year + 543" style="position: absolute;left:1250px;top: 260px;"/>
+                                <t t-if="date.tm_mon == 1">
+                                    <span style="position: absolute;left:795px;top: 320px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 2">
+                                    <span style="position: absolute;left:795px;top: 370px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 3">
+                                    <span style="position: absolute;left:795px;top: 420px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 4">
+                                    <span style="position: absolute;left:930px;top: 320px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 5">
+                                    <span style="position: absolute;left:930px;top: 370px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 6">
+                                    <span style="position: absolute;left:930px;top: 420px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 7">
+                                    <span style="position: absolute;left:1060px;top: 320px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 8">
+                                    <span style="position: absolute;left:1060px;top: 370px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 9">
+                                    <span style="position: absolute;left:1060px;top: 420px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 10">
+                                    <span style="position: absolute;left:1190px;top: 320px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 11">
+                                    <span style="position: absolute;left:1190px;top: 370px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                                <t t-if="date.tm_mon == 12">
+                                    <span style="position: absolute;left:1190px;top: 420px;">
+                                        <font style="font-size: 30px;">✓</font>
+                                    </span>
+                                </t>
+                            </t>
+                            <span style="position: absolute;left:650px;top: 780px;">
+                                <font style="font-size: 30px;">✓</font>
+                            </span>
+                            <t t-set="info1" t-value="get_tax_info"/>
+                            <t t-if="info1 and info1['total_item']">
+                                <t t-set="item" t-value="info1['total_item']"/>
+                                <span t-esc="item" style="position: absolute;left:1220px;top: 785px;"/>
+                            </t>
+                            <t t-if="info1 and info1['total_page']">
+                                <t t-set="page" t-value="info1['total_page']"/>
+                                <span t-esc="page" style="position: absolute;left:1220px;top: 830px;"/>
+                            </t>
+
+
+                            <t t-if="info1 and info1['total_amount']">
+                                <t t-set="total_amount" t-value="info1['total_amount']"/>
+                                <span t-esc="'{0:,.2f}'.format(float(total_amount))" style="position: absolute;left:1130px;top: 1100px;"/>
+
+                            </t>
+                            <t t-if="info1 and info1['total_wht_amount']">
+                                <t t-set="total_wht_amount" t-value="info1['total_wht_amount']"/>
+                               <span t-esc="'{0:,.2f}'.format(float(total_wht_amount))" style="position: absolute;left:1142px;top: 1140px;"/>
+
+                            </t>
+
+                            <span style="position: absolute;left:1165px;top: 1190px;">0.00</span>
+
+                            <t t-if="info1 and info1['total_wht_amount']">
+                                <t t-set="total_wht_amount" t-value="info1['total_wht_amount']"/>
+                                <span t-esc="'{0:,.2f}'.format(float(total_wht_amount))" style="position: absolute;left:1142px;top: 1230px;"/>
+                            </t>
+                        </font>
+
+                    </div>
+
+                </div>
+
+                <!--div class="page" t-attf-style="background-image:url('/tax_reports_v2/static/description/PND53_at1.jpg'); background-size:360mm 520mm; width:360mm; height:520mm;">
+
+                </div-->
+
+            </t>
+        </template>
+
+    </data>
+</openerp>

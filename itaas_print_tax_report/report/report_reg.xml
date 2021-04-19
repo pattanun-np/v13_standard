@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="paperformat_A4_Zero_Margin_Tax_Report" model="report.paperformat">
+            <field name="name">paperformat_A4_Zero_Margin_Tax_Report</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">45</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_spacing">40</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_A4_Zero_Margin_WHT_01" model="report.paperformat">
+            <field name="name">paperformat_A4_Zero_Margin_WHT_01</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">10</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_A4_Zero_Margin_ACC_Teejai" model="report.paperformat">
+            <field name="name">A4_Zero_Margin_ACC_v10</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_A4_Zero_Margin_WHT_02" model="report.paperformat">
+            <field name="name">A4_Zero_Margin_ACC_v10</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="action_report_pnd53_id"
+                model="account.move"
+                menu="False"
+                report_type="qweb-pdf"
+                string="รายงานปะหน้า ภ.ง.ด.53"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_WHT_02"
+                name="itaas_print_tax_report.report_pnd53_id"
+                file="itaas_print_tax_report.report_pnd53_id"
+        />
+
+        <report
+                id="action_report_pnd3_id"
+                model="account.move"
+                menu="False"
+                report_type="qweb-pdf"
+                string="รายงานปะหน้า ภ.ง.ด.3"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_WHT_02"
+                name="itaas_print_tax_report.report_pnd3_id"
+                file="itaas_print_tax_report.report_pnd3_id"
+        />
+
+        <report
+                id="holdingtax3_report"
+                model="account.move.line"
+                menu="True"
+                report_type="qweb-pdf"
+                string="ใบ ภงด.3"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_WHT_01"
+                name="itaas_print_tax_report.holdingtax3_report_id"
+                file="itaas_print_tax_report.holdingtax3_report_id"
+        />
+
+        <report
+                id="holdingtax53_report"
+                model="account.move.line"
+                menu="True"
+                report_type="qweb-pdf"
+                string="ใบ ภงด.53"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_WHT_01"
+                name="itaas_print_tax_report.holdingtax53_report_id"
+                file="itaas_print_tax_report.holdingtax53_report_id"
+        />
+
+        <report
+                id="action_purchase_tax_report_id"
+                model="account.move"
+                menu="False"
+                report_type="qweb-pdf"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_Tax_Report"
+                string="Purchase Tax Report"
+                name="itaas_print_tax_report.purchase_tax_report_id"
+                file="itaas_print_tax_report.purchase_tax_report_id"
+        />
+        <report
+                id="action_sale_tax_report_id"
+                model="account.move"
+                menu="False"
+                report_type="qweb-pdf"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_Tax_Report"
+                string="Sale Tax Report"
+                name="itaas_print_tax_report.sale_tax_report_id"
+                file="itaas_print_tax_report.sale_tax_report_id"
+        />
+        <report
+                id="action_tax_30_report_id"
+                model="account.move"
+                menu="False"
+                report_type="qweb-pdf"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_WHT_02"
+                string="กพ.30 Report"
+                name="itaas_print_tax_report.report_pnd30_id"
+                file="itaas_print_tax_report.report_pnd30_id"
+        />
+
+        <!--        <report-->
+        <!--                id="teejai_report"-->
+        <!--                model="account.move"-->
+        <!--                menu="True"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_ACC_Teejai"-->
+        <!--                string="หนังสือรับรองการหัก ณ ที่จ่าย ภ.ง.ด.53"-->
+        <!--                name="itaas_print_tax_report.teejai_report_id"-->
+        <!--                file="itaas_print_tax_report.teejai_report_id"-->
+        <!--        />-->
+
+        <report
+                id="teejai_report_journal"
+                model="account.move"
+                menu="True"
+                report_type="qweb-pdf"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_ACC_Teejai"
+                string="หนังสือรับรองการหัก ณ ที่จ่าย ภ.ง.ด.53 (Invoice)"
+                name="itaas_print_tax_report.teejai_report_journal_id"
+                file="itaas_print_tax_report.teejai_report_journal_id"
+        />
+
+        <report
+                id="teejai_report_journal_01"
+                model="account.move"
+                menu="True"
+                report_type="qweb-pdf"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_ACC_Teejai"
+                string="หนังสือรับรองการหัก ณ ที่จ่าย ภ.ง.ด.53 (Journal)"
+                name="itaas_print_tax_report.teejai02_report_journal_id_journal"
+                file="itaas_print_tax_report.teejai02_report_journal_id_journal"
+        />
+
+
+        <report
+                id="teejai02_report_journal_01"
+                model="account.move"
+                menu="True"
+                report_type="qweb-pdf"
+                string="หนังสือรับรองการหัก ณ ที่จ่าย ภ.ง.ด.3 (Journal)"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_ACC_Teejai"
+                name="itaas_print_tax_report.teejai_report_journal_id_journal"
+                file="itaas_print_tax_report.teejai_report_journal_id_journal"
+        />
+
+
+
+        <report
+                id="teejai02_report_journal"
+                model="account.move"
+                menu="True"
+                report_type="qweb-pdf"
+                string="หนังสือรับรองการหัก ณ ที่จ่าย ภ.ง.ด.3 (Invoice)"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_ACC_Teejai"
+                name="itaas_print_tax_report.teejai02_report_journal_id"
+                file="itaas_print_tax_report.teejai02_report_journal_id"
+        />
+        <report
+                id="teejai03_report_journal"
+                model="account.move"
+                menu="True"
+                report_type="qweb-pdf"
+                string="หนังสือรับรองการหัก ณ ที่จ่าย"
+                paperformat="itaas_print_tax_report.paperformat_A4_Zero_Margin_ACC_Teejai"
+                name="itaas_print_tax_report.teejai03_report_journal_id"
+                file="itaas_print_tax_report.teejai03_report_journal_id"
+        />
+
+    </data>
+</openerp>
