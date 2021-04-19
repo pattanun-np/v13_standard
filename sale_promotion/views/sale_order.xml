@@ -7,7 +7,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form" />
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='print_quotation']" position="after">
+                <xpath expr="//button[@name='action_cancel']" position="after">
                      <button name="button_dump_sale_promotion" class="btn-primary"
                             string="Apply offer" states="draft,sent" type="object" context="{'show_sale': True}"/>
                 </xpath>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="customer_billing_tree" model="ir.ui.view">
+		<field name="name">customer.billing.tree</field>
+		<field name="model">customer.billing</field>
+		<field name="arch" type="xml">
+			<tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Customer Billing">
+				<field name="name"/>
+				<!--<field name="rec_pre_no" string="ใบเตรียม"/>-->
+				<field name="partner_id" groups="base.group_user" string="Customer"/>
+				<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+				<field name="date_billing"/>
+				<field name="date_receipt"/>
+				<field name="user_id"/>
+				<field name="amount_untaxed" sum="Untaxed"/>
+				<field name="amount_tax" sum="Tax"/>
+				<field name="amount_total" sum="Total" />
+				<field name="residual" sum="Due"/>
+				<field name="currency_id" invisible="1"/>
+				<field name="company_currency_id" invisible="1"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="customer_billing_form" model="ir.ui.view">
+		<field name="name">customer.billing.form</field>
+		<field name="model">customer.billing</field>
+		<field name="arch" type="xml">
+			<form string="Invoice">
+				<header>
+					<button name="action_print" string="Print" type="object" class="oe_highlight" groups="base.group_user"/>
+					<button name="validate_billing" type="object" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
+					<button name="confirm_billing" type="object" states="validate" string="Confirm" class="oe_highlight" groups="base.group_user"/>
+
+					<button name="action_cancel" type="object" states="draft,validate,confirm" string="Cancel Bill" groups="base.group_user"/>
+					<button name="action_cancel_draft" states="cancel,validate" string="Reset to Draft" type="object" groups="base.group_user"/>
+					<field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,validate,confirm,paid" statusbar_colors='{"confirm":"blue"}'/>
+				</header>
+				<sheet string="Customer Billing">
+					<h1 class="mt0">
+						<field name="name" readonly="1" class="oe_inline"/>
+						<!--<field name="rec_pre_no" string="หมายเลขใบเตรียมใบเสร็จ" readonly="1" class="oe_inline oe_right" attrs="{'invisible': [('rec_pre_generated','=',False)]}"/>-->
+						<!--<field name="rec_pre_generated" invisible="1"/>-->
+					</h1>
+					<group>
+						<group>
+							<field string="Customer" name="partner_id"
+								   context="{'search_default_customer':1, 'show_address': 1}"
+								   options='{"always_reload": True}'/>
+							<!--								   domain="[('customer', '=', True)]"/>-->
+							<field name="desc"/>
+							<field name="auto_load"/>
+						</group>
+						<group>
+							<field name="date_billing"/>
+							<!--<field name="rec_pre_date" attrs="{'invisible': [('rec_pre_generated','=',False)]}"/>-->
+							<field name="type" invisible="1"/>
+							<field name="user_id" groups="base.group_user" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice']}"/>
+							<label for="currency_id" groups="base.group_multi_currency"/>
+							<div groups="base.group_multi_currency">
+								<field name="currency_id" options="{'no_create': True, 'no_open': True}" class="oe_inline"/>
+								<field name="company_currency_id" invisible="1"/>
+							</div>
+							<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+							<field name="date_receipt"/>
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string="Invoices">
+							<field name="invoice_ids" nolabel="1" domain="[('partner_id','=',partner_id),('type','in',('out_invoice','out_refund')),('state','=','posted'),('invoice_payment_state','=','not_paid'),('billing_id','=',False)]">
+								<tree string="Invoices" editable="bottom">
+									<field name="invoice_date"/>
+									<field name="name" readonly="1"/>
+									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+									<field name="invoice_user_id"/>
+									<field name="invoice_date_due"/>
+									<field name="invoice_origin"/>
+									<field name="amount_untaxed_signed" string="Untaxed Amount"/>
+									<field name="amount_tax_signed" string="Tax"/>
+									<field name="amount_total_signed" string="Total" sum="Total" />
+									<field name="amount_residual_signed" string="Amount Due" sum="Amount due"/>
+									<field name="currency_id" invisible="1"/>
+									<field name="state" invisible="1"/>
+								</tree>
+							</field>
+							<group class="oe_subtotal_footer oe_right" colspan="2" name="customer_bill_total">
+								<field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="amount_total" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>
+								<field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+							</group>
+							<field name="comment" placeholder="Terms and conditions..."/>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+
+	<record id="action_customer_billing_tree" model="ir.actions.act_window">
+		<field name="name">Customer Billing</field>
+		<field name="res_model">customer.billing</field>
+
+		<field name="view_mode">tree,form</field>
+		<field eval="False" name="view_id"/>
+		<field name="domain">[('type','in',('out_invoice','out_refund'))]</field>
+		<field name="context">{'default_type':'out_invoice', 'type':'out_invoice'}</field>
+		<!--		<field name="search_view_id" ref="view_customer_billing_filter"/>-->
+	</record>
+
+	<record id="customer_billing_tree_view1" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="customer_billing_tree"/>
+		<field name="act_window_id" ref="action_customer_billing_tree"/>
+	</record>
+
+	<record id="customer_billing_tree_view2" model="ir.actions.act_window.view">
+		<field eval="2" name="sequence"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="customer_billing_form"/>
+		<field name="act_window_id" ref="action_customer_billing_tree"/>
+	</record>
+
+
+	<!--	customer billing form view-->
+
+
+
+	<record id="supplier_billing_tree" model="ir.ui.view">
+		<field name="name">supplier.billing.tree</field>
+		<field name="model">customer.billing</field>
+		<field name="arch" type="xml">
+			<tree decoration-info="state == 'draft'" decoration-muted="state == 'cancel'" string="Supplier Billing">
+				<field name="name"/>
+				<field name="partner_id" groups="base.group_user" string="Supplier"/>
+				<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+				<field name="date_billing"/>
+				<field name="user_id"/>
+				<field name="amount_untaxed" sum="Untaxed"/>
+				<field name="amount_tax" sum="Tax"/>
+				<field name="amount_total" sum="Total" />
+				<field name="residual" sum="Due"/>
+				<field name="currency_id" invisible="1"/>
+				<field name="company_currency_id" invisible="1"/>
+				<field name="state"/>
+			</tree>
+		</field>
+	</record>
+
+
+	<record id="supplier_billing_form" model="ir.ui.view">
+		<field name="name">supplier.billing.form</field>
+		<field name="model">customer.billing</field>
+		<field name="arch" type="xml">
+			<form string="Invoice">
+				<header>
+					<button name="validate_billing" type="object" states="draft" string="Validate" class="oe_highlight" groups="base.group_user"/>
+					<button name="confirm_billing" type="object" states="validate" string="Confirm" class="oe_highlight" groups="base.group_user"/>
+					<button name="action_cancel" type="object" states="draft,validate,confirm" string="Cancel Bill" groups="base.group_user"/>
+					<button name="action_cancel_draft" states="cancel,validate" string="Reset to Draft" type="object" groups="base.group_user"/>
+					<field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,validate,confirm,paid" statusbar_colors='{"confirm":"blue"}'/>
+				</header>
+				<sheet string="Supplier Billing">
+					<h1 class="mt0">
+						<field name="name" readonly="1" class="oe_inline"/>
+					</h1>
+					<group>
+						<group>
+							<field string="Supplier" name="partner_id"
+								   context="{'search_default_supplier':1, 'show_address': 1}"
+								   options='{"always_reload": True}'/>
+							<field name="desc"/>
+							<field name="auto_load"/>
+						</group>
+						<group>
+							<field name="date_billing"/>
+							<field name="type" invisible="1"/>
+							<field name="user_id" groups="base.group_user" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice']}"/>
+							<label for="currency_id" groups="base.group_multi_currency"/>
+							<div groups="base.group_multi_currency">
+								<field name="currency_id" options="{'no_create': True, 'no_open': True}" class="oe_inline"/>
+								<field name="company_currency_id" invisible="1"/>
+							</div>
+							<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+						</group>
+					</group>
+					<notebook colspan="4">
+						<page string="Invoices">
+							<field name="invoice_ids" nolabel="1" domain="[('partner_id','=',partner_id),('type','in',('in_invoice','in_refund')),('state','=','posted'),('invoice_payment_state','=','not_paid'),('billing_id','=',False)]">
+								<tree string="Invoices" editable="bottom">
+									<field name="invoice_date"/>
+									<field name="name" readonly="1"/>
+									<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+									<field name="invoice_user_id"/>
+									<field name="invoice_date_due"/>
+									<field name="invoice_origin"/>
+									<field name="amount_untaxed_signed" string="Untaxed Amount"/>
+									<field name="amount_tax_signed" string="Tax"/>
+									<field name="amount_total_signed" string="Total" sum="Total" />
+									<field name="amount_residual_signed" string="Amount Due" sum="Amount due"/>
+									<field name="currency_id" invisible="1"/>
+									<field name="state" invisible="1"/>
+
+								</tree>
+							</field>
+							<group class="oe_subtotal_footer oe_right" colspan="2" name="customer_bill_total">
+								<field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="amount_total" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+								<field name="payments_widget" colspan="2" nolabel="1" widget="payment"/>
+								<field name="residual" class="oe_subtotal_footer_separator" attrs="{'invisible': [('state', '=', 'draft')]}" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+							</group>
+							<field name="comment" placeholder="Terms and conditions..."/>
+						</page>
+					</notebook>
+				</sheet>
+				<div class="oe_chatter">
+					<field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+					<field name="message_ids" widget="mail_thread"/>
+				</div>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_supplier_billing_tree" model="ir.actions.act_window">
+		<field name="name">Supplier Billing</field>
+		<field name="res_model">customer.billing</field>
+		<field name="view_mode">tree,form</field>
+		<field eval="False" name="view_id"/>
+		<field name="domain">[('type','in',('in_invoice','in_refund'))]</field>
+		<field name="context">{'default_type':'in_invoice', 'type':'in_invoice'}</field>
+		<!--		<field name="search_view_id" ref="view_customer_billing_filter"/>-->
+	</record>
+
+	<record id="supplier_billing_tree_view1" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="supplier_billing_tree"/>
+		<field name="act_window_id" ref="action_supplier_billing_tree"/>
+	</record>
+
+	<record id="supplier_billing_tree_view2" model="ir.actions.act_window.view">
+		<field eval="2" name="sequence"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="supplier_billing_form"/>
+		<field name="act_window_id" ref="action_supplier_billing_tree"/>
+	</record>
+
+	<menuitem action="action_customer_billing_tree" id="menu_action_customer_billing_tree" parent="account.menu_finance_receivables" sequence="2"/>
+	<menuitem action="action_supplier_billing_tree" id="menu_action_supplier_billing_tree" parent="account.menu_finance_payables" sequence="2"/>
+
+
+
+<!--		For invoice - account.move type invoice -->
+<!--	 inherit account invoice form -->
+		<record id="invoice_form_customer_billing_itaas_inherit" model="ir.ui.view">
+			<field name="name">account.move.form.customer.billing.itaas</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+
+				<field name="invoice_date" position="after">
+					<field name="billing_id" attrs="{'invisible': ['|',('billing_id','=',False),('type', '=', 'entry')]}"/>
+				</field>
+
+			</field>
+		</record>
+
+
+<!--	 inherit account.invoice tree-->
+		<record id="invoice_tree_billing_itaas_inherit" model="ir.ui.view">
+			<field name="name">account.move.tree.billing.taas</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_invoice_tree"/>
+			<field name="arch" type="xml">
+				<field name="invoice_origin" position="after">
+					<!--<field name="billing_number" />-->
+					<field name="billing_id" />
+				</field>
+			</field>
+		</record>
+
+
+
+<!--	 inherit account.invoice search -->
+<!--		<record id="invoice_search_billing_itaas_inherit" model="ir.ui.view">-->
+<!--			<field name="name">account.move.search.billing.taas</field>-->
+<!--			<field name="model">account.move</field>-->
+<!--			<field name="inherit_id" ref="account.view_account_invoice_filter"/>-->
+<!--			<field name="arch" type="xml">-->
+<!--				<filter name="status" position="after">-->
+<!--					&lt;!&ndash;<filter name="billing_number" string="billing" context="{'group_by':'billing_number'}"/>&ndash;&gt;-->
+<!--					<filter name="billing_id" string="billing" context="{'group_by':'billing_id'}"/>-->
+<!--				</filter>-->
+<!--			</field>-->
+<!--		</record>-->
+</odoo>

@@ -1,0 +1,17 @@
+<odoo>
+	<!-- inherit account invoice form -->
+	<record id="account_tax_form_itaas_inherit" model="ir.ui.view">
+	    <field name="name">account.tax.form.itaas</field>
+	    <field name="model">account.tax</field>
+	    <field name="inherit_id" ref="account.view_tax_form"/>
+	    <field name="arch" type="xml">
+	    	<field name="include_base_amount" position="after">
+	    		<field name="wht"/>
+				<field name="tax_report"/>
+				<field name="tax_no_refund"/>
+				<field name="wht_type"/>
+	    	</field>
+	    </field>
+    </record>
+
+</odoo>

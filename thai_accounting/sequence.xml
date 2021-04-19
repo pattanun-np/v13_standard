@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        
+        <!-- Sequences for account.invoice for tax invoice number -->
+        <record id="seq_acc_tax_inv_no" model="ir.sequence">
+            <field name="name">Tax INV No</field>
+            <field name="code">tax.inv.no</field>
+            <field name="prefix">T-INV/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_supplier_no" model="ir.sequence">
+            <field name="name">Supplier No</field>
+            <field name="code">supplier.no</field>
+            <field name="prefix">SUP-/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_customer_no" model="ir.sequence">
+            <field name="name">Customer No</field>
+            <field name="code">cus.no</field>
+            <field name="prefix">CUS-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequences for customer.billing -->
+        <record id="seq_customer_billing" model="ir.sequence">
+            <field name="name">Customer Billing</field>
+            <field name="code">customer.billing</field>
+            <field name="prefix">C-BILL/%(range_year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_supplier_billing" model="ir.sequence">
+            <field name="name">Supplier Billing</field>
+            <field name="code">supplier.billing</field>
+            <field name="prefix">S-BILL/%(range_year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_wht3_no" model="ir.sequence">
+            <field name="name">Witholding Tax 3</field>
+            <field name="code">wht3.no</field>
+            <field name="prefix">%(range_year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+
+        </record><record id="seq_wht53_no" model="ir.sequence">
+            <field name="name">Witholding Tax 53</field>
+            <field name="code">wht53.no</field>
+            <field name="prefix">%(range_year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+
+        </record><record id="seq_cheque_rec_no" model="ir.sequence">
+            <field name="name">Cheque Receive No</field>
+            <field name="code">cheque.rec.no</field>
+            <field name="prefix">CHR%(year)s%(month)s</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+        <record id="seq_cheque_pay_no" model="ir.sequence">
+            <field name="name">Cheque Pay No</field>
+            <field name="code">cheque.pay.no</field>
+            <field name="prefix">CHP%(year)s%(month)s</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="True"/>
+        </record>
+
+    </data>
+
+</openerp>

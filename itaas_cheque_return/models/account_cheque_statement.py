@@ -22,27 +22,30 @@ class Account_Cheque_Statement_return(models.Model):
         selection_add=[('return', 'Return')],
     )
 
-    @api.multi
+
     def set_to_draft(self):
         self.write({'state': 'open'})
 
 
 
-    @api.multi
     def action_set_confirm_return(self):
-        print 'action_set_confirm_return'
+        # print 'action_set_confirm_return'
         self.action_validate()
         self.action_return()
         self.write({'state': 'return'})
 
-    @api.multi
     def action_return(self):
         if self.move_new_id:
-            print 'move_new_id:',self.move_new_id
-            adj_moves = self.env['account.move']
+            # print 'move_new_id:',self.move_new_id
+            # adj_moves = self.env['account.move']
             adj_moves = self.move_new_id
-            print 'reverse_entry',adj_moves
-            adj_moves.reverse_moves(self.move_new_id.date,self.move_new_id.journal_id or False)
+            # print 'reverse_entry',adj_moves
+            # adj_moves._reverse_moves(self.move_new_id.date,self.move_new_id.journal_id or False)
+            if self.move_id.journal_id.adj_journal:
+                journal_id =  self.move_id.journal_id.adj_journal.id
+            else:
+                journal_id = self.move_new_id.journal_id.id
+            adj_moves._reverse_moves([{'date': self.move_new_id.date, 'ref': _('Reversal of %s') % self.move_new_id.name,'journal_id':journal_id}], cancel=True)
             self.write({'state': 'return'})
 
 

@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_company_form_add_purchase_form_number" model="ir.ui.view">
+        <field name="name">res.company.form.number</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="itaas_company_setting.view_company_form_itaas_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='system_version']" position="after">
+                <field name="purchase_order_no_form"/>
+                <field name="show_product_code_on_purchase"/>
+
+
+            </xpath>
+            <xpath expr="//field[@name='release_date']" position="after">
+                <field name="show_currency_on_purchase"/>
+                <field name="show_date_auto_purchase"/>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+</odoo>

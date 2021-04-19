@@ -20,7 +20,7 @@
 
 {
     'name': "Sale Promotion",
-    'version': '12.0.1.0.1',
+    'version': '13.0.1.0.1',
     'summary': """Create Promotion Offers For Sales""",
     'description': """This Module Allows to Set  Promotion Offers On Products And Product Categories.""",
     'author': "Cybrosys Techno Solutions",

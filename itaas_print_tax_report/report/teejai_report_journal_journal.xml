@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="teejai_report_journal_id_journal">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="move_id" t-value="o.env['account.move'].search([('id','=',o.id)])"/>
+                    <t t-set="tax" t-value="move_id.mapped('line_ids').filtered(lambda m: m.wht_reference)"/>
+
+                    <t t-set="vat_id" t-value="o.company_id.vat"/>
+                    <t t-if="o.partner_id">
+                        <t t-set="vat1_id" t-value="o.partner_id.vat"/>
+                    </t>
+                    <t t-if="not o.partner_id">
+                        <t t-set="vat1_id" t-value="o.contact.vat"/>
+                    </t>
+                    <t t-if="o.supplier_name_text and not o.partner_id ">
+                        <t t-set="vat1_id" t-value="o.supplier_taxid_text"/>
+                    </t>
+                    <div class="page" t-attf-style="background-image:url('/itaas_print_tax_report/static/whithoding.jpg'); background-size:360mm 520mm; width:360mm; height:520mm;">
+                        <div style="text-align:center; position: absolute;left: 1200px;top: 150px;">
+                            <font style="font-size: 14px;">
+                                <span t-esc="tax[0].wht_reference"/>
+                            </font>
+                        </div>
+                        <div>
+                            <font style="font-size: 20px;">
+                                <t t-if="vat_id">
+                                    <span t-esc="vat_id[0]" style="position: absolute;left: 880px;top: 200px;"/>
+                                    <span t-esc="vat_id[1]" style="position: absolute;left: 920px;top: 200px;"/>
+                                    <span t-esc="vat_id[2]" style="position: absolute;left: 950px;top: 200px;"/>
+                                    <span t-esc="vat_id[3]" style="position: absolute;left: 980px;top: 200px;"/>
+                                    <span t-esc="vat_id[4]" style="position: absolute;left: 1010px;top: 200px;"/>
+                                    <span t-esc="vat_id[5]" style="position: absolute;left: 1050px;top: 200px;"/>
+                                    <span t-esc="vat_id[6]" style="position: absolute;left: 1080px;top: 200px;"/>
+                                    <span t-esc="vat_id[7]" style="position: absolute;left: 1100px;top: 200px;"/>
+                                    <span t-esc="vat_id[8]" style="position: absolute;left: 1130px;top: 200px;"/>
+                                    <span t-esc="vat_id[9]" style="position: absolute;left: 1160px;top: 200px;"/>
+                                    <span t-esc="vat_id[10]" style="position: absolute;left: 1200px;top: 200px;"/>
+                                    <span t-esc="vat_id[11]" style="position: absolute;left: 1230px;top: 200px;"/>
+                                    <span t-esc="vat_id[12]" style="position: absolute;left: 1275px;top: 200px;"/>
+                                </t>
+                            </font>
+                        </div>
+                        <div class="col-xs-12" style="position: absolute;left: 160px;top: 237px;">
+                            <font style="font-size: 25px;">
+                                <span t-field="o.company_id.name"/>
+                            </font>
+                        </div>
+                        <div class="col-xs-12" style="position: absolute;left: 160px;top: 288px;">
+                            <font style="font-size: 20px;">
+                                <span t-if="o.company_id.building"><span t-field="o.company_id.building"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.roomnumber">ห้องที่&amp;nbsp;<span t-field="o.company_id.roomnumber"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.floornumber">ชั้นที่&amp;nbsp;<span t-field="o.company_id.floornumber"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.village">หมู่บ้าน&amp;nbsp;<span t-field="o.company_id.village"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.house_number"><span t-field="o.company_id.house_number"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.moo_number">&amp;nbsp;<span t-field="o.company_id.moo_number"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.soi_number">ซอย&amp;nbsp;<span t-field="o.company_id.soi_number"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.street"><span t-esc="o.company_id.street"/>&amp;nbsp;</span>
+                                <!--<span t-if="o.company_id.street2"><span t-esc="o.company_id.street2"/><![CDATA[&nbsp;]]></span>-->
+                                <span t-if="o.company_id.city and o.company_id.state_id and o.company_id.state_id.code == 'BKK'">&amp;nbsp;<span t-field="o.company_id.city"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.city and o.company_id.state_id and o.company_id.state_id.code != 'BKK'">&amp;nbsp;<span t-field="o.company_id.city"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.state_id.name">จังหวัด&amp;nbsp;<span t-field="o.company_id.state_id.name"/>&amp;nbsp;</span>
+                                <span t-if="o.company_id.zip"><span t-esc="o.company_id.zip"/></span>&amp;nbsp;
+                                <!--<span t-if="o.company_id.country_id and o.company_id.country_id.code == 'TH'">ประเทศไทย&amp;nbsp;</span>-->
+                                <!--<span t-if="o.company_id.country_id and o.company_id.country_id.code != 'TH'"><span t-field="o.company_id.country_id.name"/>&amp;nbsp;</span>-->
+                            </font>
+                        </div>
+                        <div>
+                            <font style="font-size: 20px;">
+                                <t t-if="vat1_id">
+                                    <span t-esc="vat1_id[0]" style="position: absolute;left: 880px;top: 360px;"/>
+                                    <span t-esc="vat1_id[1]" style="position: absolute;left: 920px;top: 360px;"/>
+                                    <span t-esc="vat1_id[2]" style="position: absolute;left: 950px;top: 360px;"/>
+                                    <span t-esc="vat1_id[3]" style="position: absolute;left: 980px;top: 360px;"/>
+                                    <span t-esc="vat1_id[4]" style="position: absolute;left: 1010px;top: 360px;"/>
+                                    <span t-esc="vat1_id[5]" style="position: absolute;left: 1050px;top: 360px;"/>
+                                    <span t-esc="vat1_id[6]" style="position: absolute;left: 1080px;top: 360px;"/>
+                                    <span t-esc="vat1_id[7]" style="position: absolute;left: 1100px;top: 360px;"/>
+                                    <span t-esc="vat1_id[8]" style="position: absolute;left: 1130px;top: 360px;"/>
+                                    <span t-esc="vat1_id[9]" style="position: absolute;left: 1160px;top: 360px;"/>
+                                    <span t-esc="vat1_id[10]" style="position: absolute;left: 1200px;top: 360px;"/>
+                                    <span t-esc="vat1_id[11]" style="position: absolute;left: 1230px;top: 360px;"/>
+                                    <span t-esc="vat1_id[12]" style="position: absolute;left: 1275px;top: 360px;"/>
+                                </t>
+                            </font>
+                        </div>
+
+
+
+                        <div class="col-xs-12" style="position: absolute;left: 160px;top: 400px;">
+                            <font style="font-size: 25px;">
+                                <span t-field="tax.partner_id.name"/>
+                            </font>
+                        </div>
+                        <br style="line-height: 50px"/> <p/>
+                        <div class="col-xs-12" style="position: absolute;left: 160px;top: 460px;">
+                            <font style="font-size: 20px;">
+                                <t t-if="tax">
+                                    <span t-field="tax[0].partner_id.street"/>&amp;nbsp;
+                                    <span t-field="tax[0].partner_id.street2"/>&amp;nbsp;
+                                    <span t-if="tax[0].partner_id.sub_district_id.name and tax[0].partner_id.state_id.code == 'BKK'">แขวง<span t-field="tax[0].partner_id.sub_district_id.name"/>&amp;nbsp;</span>
+                                    <span t-if="tax[0].partner_id.sub_district_id.name and tax[0].partner_id.state_id.code != 'BKK'">ต.<span t-field="tax[0].partner_id.sub_district_id.name"/>&amp;nbsp;</span>
+                                    <span t-if="tax[0].partner_id.district_id.name and tax[0].partner_id.state_id.code == 'BKK'">เขต<span t-field="tax[0].partner_id.district_id.name"/>&amp;nbsp;</span>
+                                    <span t-if="tax[0].partner_id.district_id.name and tax[0].partner_id.state_id.code != 'BKK'">อ.<span t-field="tax[0].partner_id.district_id.name"/>&amp;nbsp;</span>
+                                    <!--<span t-if="o.partner_id.city and o.partner_id.state_id and o.partner_id.state_id.code == 'BKK'">เขต<span t-field="o.partner_id.city"/></span>-->
+                                    <!--<span t-if="o.partner_id.city and o.partner_id.state_id and o.partner_id.state_id.code != 'BKK'">อ.<span t-field="o.partner_id.city"/></span>-->
+                                    <span t-if="tax[0].partner_id.state_id.name and tax[0].partner_id.state_id.code == 'BKK'"><span t-field="tax[0].partner_id.state_id.name"/>&amp;nbsp;</span>
+                                    <span t-if="tax[0].partner_id.state_id.name and tax[0].partner_id.state_id.code != 'BKK'">จ.<span t-field="tax[0].partner_id.state_id.name"/>&amp;nbsp;</span>
+                                    <t t-if="tax[0].partner_id.zip"><span t-esc="tax[0].partner_id.zip"/>&amp;nbsp;</t>
+                                    <!--<span t-if="o.partner_id.country_id and o.partner_id.country_id.code == 'TH'">ประเทศไทย&amp;nbsp;</span>-->
+                                    <!--<span t-if="o.partner_id.country_id and o.partner_id.country_id.code != 'TH'"><span t-field="o.partner_id.country_id.name"/>&amp;nbsp;</span>-->
+                                </t>
+                            </font>
+                        </div>
+                        <div style="position: absolute;left: 1095px;top: 518px;">
+
+                            <font style="font-size:37px;">
+                                <span>X</span>
+                            </font>
+                        </div>
+
+                        <t t-set="sum_total" t-value="0"/>
+                        <t t-set="sum_amount_total" t-value="0"/>
+                        <t t-set="i" t-value="0"/>
+                        <t t-set="description_new" t-value="''"/>
+                        <t t-set="pay_date" t-value="o.date"/>
+                        <t t-if="o.date">
+                            <t t-set="date" t-value="o.date"/>
+                        </t>
+                        <t t-foreach="o.line_ids" t-as="k">
+                            <t t-if="k.account_id.wht">
+                                <t t-if="k.wht_tax">
+                                    <t t-set="i" t-value="i+1"/>
+                                    <t t-if="k.amount_before_tax">
+                                        <t t-set="amount_total" t-value="k.amount_before_tax"/>
+                                    </t>
+                                    <t t-if="not k.amount_before_tax">
+                                        <t t-set="wht_type" t-value="k.wht_tax.amount"/>
+                                        <t t-set="amount_total" t-value="(k.credit * wht_type) / 100"/>
+                                    </t>
+                                    <t t-set="description_new" t-value="description_new + str(k.name) + ','"/>
+                                    <t t-set="sum_amount_total" t-value="sum_amount_total + amount_total"/>
+                                    <t t-set="sum_total" t-value="sum_total + k.credit"/>
+
+
+                                    <t t-if="i == 1">
+                                        <div style="position: absolute;left: 790px;top: 1420px;">
+                                            <font style="font-size:25px;">
+                                                <!--<span t-field="o.date"/>-->
+                                                <span t-field="o.date"/>
+                                            </font>
+                                        </div>
+                                        <div style="text-align:right; position: absolute;right: 243px;top: 1420px;">
+                                            <font style="font-size:25px;">
+                                                <span t-esc="'{0:,.2f}'.format(float(amount_total))"/>
+
+                                            </font>
+                                        </div>
+                                        <div style="text-align:right; position: absolute;right: 80px;top: 1420px;">
+                                            <font style="font-size:25px;">
+                                                <t t-if="k.credit != 0">
+                                                    <span t-esc="'{0:,.2f}'.format(float(k.credit))"/>
+                                                </t>
+                                                <t t-if="k.credit == 0">
+                                                    <span t-esc="'{0:,.2f}'.format(float(k.debit))"/>
+                                                </t>
+                                            </font>
+                                        </div>
+                                    </t>
+                                    <t t-if="i == 2">
+                                        <div style="position: absolute;left: 790px;top: 1470px;">
+                                            <font style="font-size:25px;">
+                                                <!--<span t-field="o.date"/>-->
+                                                <span t-field="o.date"/>
+                                            </font>
+                                        </div>
+                                        <div style="position: absolute;right: 243px;top: 1470px;">
+                                            <font style="font-size:25px;">
+                                                <span t-esc="'{0:,.2f}'.format(float(amount_total))"/>
+                                            </font>
+                                        </div>
+                                        <div style="position: absolute;right: 80px;top: 1470px;">
+                                            <font style="font-size:25px;">
+                                                <t t-if="k.credit != 0">
+                                                    <span t-esc="'{0:,.2f}'.format(float(k.credit))"/>
+                                                </t>
+                                                <t t-if="k.credit == 0">
+                                                    <span t-esc="'{0:,.2f}'.format(float(k.debit))"/>
+                                                </t>
+
+                                            </font>
+                                        </div>
+
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+
+                        <font style="font-size:22px;">
+                            <div style="width:400px; position: absolute;left: 240px;top: 1470px;">
+                                <span t-esc="description_new"/>
+                            </div>
+                        </font>
+
+                        <div style="text-align:right; position: absolute;right: 243px;top: 1520px;">
+                            <font style="font-size:25px;">
+                                <span t-esc="'{0:,.2f}'.format(float(sum_amount_total))"/>
+                            </font>
+                        </div>
+                        <div style="text-align:right; position: absolute;right: 80px;top: 1520px;">
+                            <font style="font-size:25px;">
+                                <span t-esc="'{0:,.2f}'.format(float(sum_total))"/>
+                            </font>
+                        </div>
+                        <div style="position: absolute;left: 447px;top: 1560px;">
+                            <font style="font-size:25px;">
+                                <span t-esc="o.baht_text(sum_total)"/>
+                            </font>
+                        </div>
+                        <div style="position: absolute;left: 205px;top: 1645px;">
+                            <font style="font-size:37px;">
+                                <span>X</span>
+                            </font>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

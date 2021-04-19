@@ -17,6 +17,12 @@ class account_move(models.Model):
     
     inv_id = fields.Many2one('account.move', string='Invoice')
 
+
+class account_move_line(models.Model):
+    _inherit = 'account.move.line'
+
+    inv_id = fields.Many2one('account.move', string='Invoice')
+
 class account_payment(models.Model):
     _inherit = 'account.payment'
 
@@ -140,6 +146,7 @@ class account_payment(models.Model):
                     'partner_id': self.partner_id.id,
                     'account_id': self.destination_account_id.id,
                     'payment_id': self.id,
+
                 }),
                 # Liquidity line.
                 (0, 0, {
@@ -162,13 +169,35 @@ class account_payment(models.Model):
     
     def _dev_prepare_payment_moves(self):
         all_move_vals = []
+        line_val = []
+        move_names = ""
+        liquidity_line_name = ""
+
+        liquidity_amount_total = balance_total = 0
         for payment in self:
+            liquidity_line_currency_id = payment.currency_id.id
+
+            if payment.payment_type in ('outbound', 'transfer'):
+                liquidity_line_account = payment.journal_id.default_debit_account_id
+            else:
+                liquidity_line_account = payment.journal_id.default_credit_account_id
+
+            move_vals = {
+                'date': payment.payment_date,
+                'ref': payment.communication,
+                'journal_id': payment.journal_id.id,
+                'currency_id': payment.journal_id.currency_id.id or payment.company_id.currency_id.id,
+                'partner_id': payment.partner_id.id,
+                'line_ids': line_val,
+            }
+
             for line in self.line_ids:
                 if line.allocation <= 0:
                     continue
                 o_move = []
                 company_currency = payment.company_id.currency_id
-                move_names = payment.move_name.split(payment._get_move_name_transfer_separator()) if payment.move_name else None
+                move_names = payment.move_name.split(
+                    payment._get_move_name_transfer_separator()) if payment.move_name else None
 
                 # Compute amounts.
                 if payment.payment_type in ('outbound', 'transfer'):
@@ -184,10 +213,13 @@ class account_payment(models.Model):
                     balance = counterpart_amount
                     counterpart_amount = 0.0
                     currency_id = False
+                    balance_total += balance
                 else:
                     # Multi-currencies.
-                    balance = payment.currency_id._convert(counterpart_amount, company_currency, payment.company_id, payment.payment_date)
+                    balance = payment.currency_id._convert(counterpart_amount, company_currency, payment.company_id,
+                                                           payment.payment_date)
                     currency_id = payment.currency_id.id
+                    balance_total += balance
 
                 # Manage custom currency on journal for liquidity line.
                 if payment.journal_id.currency_id and payment.currency_id != payment.journal_id.currency_id:
@@ -195,10 +227,12 @@ class account_payment(models.Model):
                     liquidity_line_currency_id = payment.journal_id.currency_id.id
                     liquidity_amount = company_currency._convert(
                         balance, payment.journal_id.currency_id, payment.company_id, payment.payment_date)
+                    liquidity_amount_total += liquidity_amount
                 else:
                     # Use the payment currency.
                     liquidity_line_currency_id = currency_id
                     liquidity_amount = counterpart_amount
+                    liquidity_amount_total += liquidity_amount
 
                 # Compute 'name' to be used in receivable/payable line.
                 rec_pay_line_name = ''
@@ -226,15 +260,8 @@ class account_payment(models.Model):
 
                 # ==== 'inbound' / 'outbound' ====
 
-                move_vals = {
-                    'date': payment.payment_date,
-                    'ref': payment.communication,
-                    'journal_id': payment.journal_id.id,
-                    'currency_id': payment.journal_id.currency_id.id or payment.company_id.currency_id.id,
-                    'partner_id': payment.partner_id.id,
-                    'line_ids': [
-                        # Receivable / Payable / Transfer line.
-                        (0, 0, {
+                # Receivable / Payable / Transfer line.
+                line_val.append((0, 0, {
                             'name': rec_pay_line_name,
                             'amount_currency': counterpart_amount,
                             'currency_id': currency_id,
@@ -244,33 +271,44 @@ class account_payment(models.Model):
                             'partner_id': payment.partner_id.id,
                             'account_id': payment.destination_account_id.id,
                             'payment_id': payment.id,
-                        }),
-                        # Liquidity line.
-                        (0, 0, {
-                            'name': liquidity_line_name,
-                            'amount_currency': -liquidity_amount,
-                            'currency_id': liquidity_line_currency_id,
-                            'debit': balance < 0.0 and -balance or 0.0,
-                            'credit': balance > 0.0 and balance or 0.0,
-                            'date_maturity': payment.payment_date,
-                            'partner_id': payment.partner_id.id,
-                            'account_id': liquidity_line_account.id,
-                            'payment_id': payment.id,
-                        }),
-                    ],
-                }
-                if move_names:
-                    move_vals['name'] = move_names[0]
-                AccountMove = self.env['account.move'].with_context(default_type='entry')
-                moves = AccountMove.create(move_vals)
-                moves.filtered(lambda move: move.journal_id.post_at != 'bank_rec').post()
-                move_name = self._get_move_name_transfer_separator().join(moves.mapped('name'))
+                            'inv_id': line.invoice_id.id,
+                        }))
+
+            # Liquidity line.
+            line_val.append((0, 0, {
+                    'name': liquidity_line_name,
+                    'amount_currency': -liquidity_amount_total,
+                    'currency_id': liquidity_line_currency_id,
+                    'debit': balance_total < 0.0 and -balance_total or 0.0,
+                    'credit': balance_total > 0.0 and balance_total or 0.0,
+                    'date_maturity': payment.payment_date,
+                    'partner_id': payment.partner_id.id,
+                    'account_id': liquidity_line_account.id,
+                    'payment_id': payment.id
+            }))
+
+
+            if move_names:
+                move_vals['name'] = move_names[0]
+
+            print ('MOVE VALS')
+            print (move_vals)
+            AccountMove = self.env['account.move'].with_context(default_type='entry')
+            moves = AccountMove.create(move_vals)
+            moves.filtered(lambda move: move.journal_id.post_at != 'bank_rec').post()
+            move_name = self._get_move_name_transfer_separator().join(moves.mapped('name'))
+
+
+            for line in self.line_ids:
+                #reconcile per line with condition of invoice id
                 if payment.payment_type in ('inbound', 'outbound'):
                     if line.invoice_id:
                         (moves + line.invoice_id).line_ids \
-                            .filtered(lambda l: not l.reconciled and l.account_id == payment.destination_account_id)\
+                            .filtered(lambda l: not l.reconciled and l.account_id == payment.destination_account_id and (l.move_id == line.invoice_id or l.inv_id == line.invoice_id))\
                             .reconcile()
             
+
+
             pay_amt = "{:.2f}".format(self.amount)
             amt = "{:.2f}".format(self.allocation_amount)
             pay_amt = float(pay_amt)

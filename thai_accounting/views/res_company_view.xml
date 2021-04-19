@@ -1,0 +1,71 @@
+<odoo>
+	<!-- inherit res.company form -->
+	<record id="view_company_form_itaas_inherit" model="ir.ui.view">
+		<field name="name">res.company.form.itaas</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+			<field name="vat" position="after">
+				<field name="branch_no"/>
+			</field>
+			<!--<field name="vat" position="attributes">-->
+				<!--<attribute name="string">เลขประจำตัวผู้เสียภาษีอากร</attribute>-->
+			<!--</field>-->
+			<field name="partner_id" position="after">
+				<!--<field name="is_head_office"/>-->
+				<field name="eng_address"/>
+			</field>
+			<field name="street" position="before">
+				<field name="building" string='อาคาร' placeholder="อาคาร.." class="o_address_street"/>
+				<field name="roomnumber" string='ห้องเลขที่' placeholder="ห้องเลขที่.." class="o_address_zip"/>
+				<field name="floornumber" string='ชั้นที่' placeholder="ชั้นที่.." class="o_address_zip"/>
+				<field name="village" string='หมู่บ้าน' placeholder="หมู่บ้าน.." class="o_address_city"/>
+				<field name="house_number" string='เลขที่' placeholder="เลขที่.." class="o_address_zip"/>
+				<field name="moo_number" string='หมู่ที่' placeholder="หมู่ที่.." class="o_address_zip"/>
+				<field name="tumbon" string='ตำบล' placeholder="ตำบล.." class="o_address_zip"/>
+				<field name="soi_number" string='ซอย' placeholder="ซอย.." class="o_address_city"/>
+
+			</field>
+			<!--<xpath expr="//notebook/page[1]" position="after">-->
+				<!--<page name="configuration" string="Configuration">-->
+					<!--<group col="4" colspan="4">-->
+						<!--&lt;!&ndash;<field name="discount_amount_condition"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="so_version_require"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="is_sale_vat"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="invoice_step"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="disable_excel_tax_report"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="authorized_amount"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="product_unique"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="readonly_date_invoice"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="allow_invoice_backward" invisible="0"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="auto_product_code"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="auto_product_barcode"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="auto_customer_code"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="auto_supplier_code"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="tax_id_require"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="branch_require"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="show_head_office"/>&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="show_total_tax_report"/>&ndash;&gt;-->
+					<!--</group>-->
+					<!--&lt;!&ndash;<group name="warranty" string="เงื่อนไขรับประกัน">&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="sale_condition" nolabel="1"/>&ndash;&gt;-->
+					<!--&lt;!&ndash;</group>&ndash;&gt;-->
+					<!--&lt;!&ndash;<group name="payment" string="รายละเอียดการชำระเงิน">&ndash;&gt;-->
+						<!--&lt;!&ndash;<field name="payment_info" nolabel="1"/>&ndash;&gt;-->
+					<!--&lt;!&ndash;</group>&ndash;&gt;-->
+				<!--</page>-->
+			<!--</xpath>-->
+		</field>
+
+
+		<!--<xpath expr="//notebook/page[2]/group/group[1]" position="after">-->
+		<!---->
+		<!---->
+		<!--</xpath>-->
+		<!--<field name="tax_calculation_rounding_method" position="after">-->
+		<!---->
+		<!--</field>-->
+	</record>
+
+
+</odoo>

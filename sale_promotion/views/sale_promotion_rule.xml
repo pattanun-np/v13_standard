@@ -100,7 +100,7 @@
         <record id="action_sale_promotion_menu" model="ir.actions.act_window">
             <field name="name">Sale Promotions</field>
             <field name="res_model">sale.promotion</field>
-            <field name="view_type">form</field>
+
             <field name="view_mode">tree,form</field>
         </record>
 

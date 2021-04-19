@@ -1,0 +1,41 @@
+<odoo>
+	<!-- inherit account journal form -->
+	<record id="account_journal_form_itaas_inherit" model="ir.ui.view">
+		<field name="name">account.journal.form.itaas</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.view_account_journal_form"/>
+		<field name="arch" type="xml">
+			<field name="sequence_id" position="attributes">
+				<attribute name="readonly">False</attribute>
+				<attribute name="groups">account.group_account_manager</attribute>
+			</field>
+			<field name="type" position="after">
+				<field name="sequence"/>
+				<field name="adj_journal" attrs="{'required': [('bank_cheque','=',True)]}"/>
+				<field name="bank_cheque"/>
+			</field>
+			<field name="default_credit_account_id" position="after">
+				<field name="bank_for_cheque_account_id" attrs="{'invisible': [('bank_cheque','=',False)],'required': [('bank_cheque','=',True)]}"/>
+
+			</field>
+			<field name="default_credit_account_id" position="after">
+				<field name="debit_sequence_id" attrs="{'invisible': ['|',('type', 'not in', ['sale', 'purchase']), ('refund_sequence', '!=', True)], 'required': [('type', 'in', ['sale', 'purchase']), ('refund_sequence', '=', True)]}"/>
+				<field name="tax_invoice_sequence_id" attrs="{'invisible': [('type', 'not in', ['sale', 'purchase'])]}"/>
+				<field name="payment_sequence_id" attrs="{'invisible': [('type', 'not in', ['sale', 'purchase'])]}"/>
+			</field>
+		</field>
+	</record>
+
+	<record id="account_journal_tree_itaas_inherit" model="ir.ui.view">
+		<field name="name">account.journal.tree.itaas</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.view_account_bank_journal_tree"/>
+		<field name="arch" type="xml">
+			<field name="name" position="after">
+				<field name="sequence"/>
+			</field>
+		</field>
+	</record>
+
+    
+</odoo>

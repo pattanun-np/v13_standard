@@ -6,8 +6,8 @@
             <field name="inherit_id" ref="thai_accounting.view_account_cheque_statement_receive_form"/>
             <field name="arch" type="xml">
                 <button  name="action_set_draft" position="after">
-                    <button name="action_set_confirm_return" string="Set Confirm Return" states="open" type="object" class="btn-primary"/>
-                    <button name="action_return" string="Set Return" states="confirm" type="object" class="btn-primary"/>
+                    <button name="action_set_confirm_return" string="Cheque Return" states="open" type="object" class="btn-primary"/>
+                    <button name="action_return" string="Cheque Return" states="confirm" type="object" class="btn-primary"/>
                     <button name="set_to_draft" string="Set To Draft" states="return" type="object" class="btn-primary"/>
                 </button>
 
@@ -21,8 +21,8 @@
             <field name="inherit_id" ref="thai_accounting.view_account_cheque_statement_payment_form"/>
             <field name="arch" type="xml">
                 <button  name="action_set_draft" position="after">
-                    <button name="action_set_confirm_return" string="Set Confirm Return" states="open" type="object" class="btn-primary"/>
-                    <button name="action_return" string="Set Return" states="confirm" type="object" class="btn-primary"/>
+                    <button name="action_set_confirm_return" string="Cheque Return" states="open" type="object" class="btn-primary"/>
+                    <button name="action_return" string="Cheque Return" states="confirm" type="object" class="btn-primary"/>
                     <button name="set_to_draft" string="Set To Draft" states="return" type="object" class="btn-primary"/>
                 </button>
 
