@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="mutil_account_view_location_form">
+        <field name="name">Stock Location Account</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock_account.view_location_form_inherit"/>
+        <field name="arch" type="xml">
+
+            <field name="valuation_in_account_id" position="after">
+                <field name="is_multi_in_account"/>
+                <field name="multi_input_ids" attrs="{'invisible':[('is_multi_in_account', '=', False)]}">
+                    <tree editable="bottom">
+                        <field name="account_activity_type_id" string="Activity"/>
+                        <field name="stock_account_input_location_id" string="Account"/>
+                    </tree>
+                </field>
+            </field>
+            <field name="valuation_out_account_id" position="after">
+                <field name="is_multi_out_account"/>
+                <field name="multi_output_ids" attrs="{'invisible':[('is_multi_out_account', '=', False)]}">
+                    <tree editable="bottom">
+                        <field name="account_activity_type_id" string="Activity"/>
+                        <field name="stock_account_output_location_id" string="Account"/>
+                    </tree>
+                </field>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

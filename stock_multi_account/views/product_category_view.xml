@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="mutil_view_category_property_form">
+        <field name="name">Product Category</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="stock_account.view_category_property_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='property_stock_account_input_categ_id']" position="after">
+                <field name="is_multi_input"/>
+                <field name="multi_input_ids" nolabel="1" colspan="2" attrs="{'invisible':[('is_multi_input', '=', False)]}" editable="bottom">
+                    <tree>
+                        <field name="account_activity_type_id"/>
+                        <field name="stock_account_input_categ_id"/>
+                        <field name="remark"/>
+                    </tree>
+                </field>
+            </xpath>
+
+            <xpath expr="//field[@name='property_stock_account_output_categ_id']" position="after">
+                <field name="is_multi_output"/>
+                <field name="multi_output_ids" nolabel="1" colspan="2" attrs="{'invisible':[('is_multi_output', '=', False)]}" editable="bottom">
+                    <tree>
+                        <field name="account_activity_type_id"/>
+                        <field name="stock_account_output_categ_id"/>
+                        <field name="remark"/>
+                    </tree>
+                </field>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
